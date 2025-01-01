@@ -34,5 +34,7 @@
   "devDependencies": {
     "@types/react": "18.0.27",
     "@types/react-dom": "^18.0.10"
-  }
+  },
+
+  "proxy": "http://localhost:8080"
 }

@@ -18,10 +18,7 @@ const Footer = () => {
         <Stack direction={'row'} spacing={6}>
           <Link href={'#'}>Home</Link>
           <Link href={'#'}>About</Link>
-          <Link href={'#'}>Blog</Link>
-          <Link href={'#'}>Contact</Link>
         </Stack>
-       <Text>2023 Chakra Builder, built with <Link href='https://www.loopple.com' isExternal>Loopple</Link>.</Text>
       </Container>
     </Box>
   )
