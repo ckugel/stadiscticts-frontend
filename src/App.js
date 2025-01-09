@@ -1,35 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import DataTable from './components/DataTable';
+import './App.css';
 
-const DataTable = () => {
-	const [data, setData] = useState([]);
-
-	useEffect(() => {
-		fetch('/api/tabledata')
-			.then(response => response.json())
-			.then(data => setData(data))
-			.catch(error => console.error('Error fetching data:', error));
-	}, []);
-
+function App() {
 	return (
-		<table>
-			<thead>
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Value</th>
-			</tr>
-			</thead>
-			<tbody>
-			{data.map(item => (
-				<tr key={item.id}>
-					<td>{item.id}</td>
-					<td>{item.name}</td>
-					<td>{item.value}</td>
-				</tr>
-			))}
-			</tbody>
-		</table>
+		<div className="App">
+			<header className="App-header">
+				<h1>Ulti Insights</h1>
+			</header>
+			<main>
+				<DataTable/>
+			</main>
+		</div>
 	);
-};
+}
 
-export default DataTable;
+export default App;
