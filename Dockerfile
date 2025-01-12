@@ -1,5 +1,5 @@
 # Use a Node.js base image
-FROM node:16-alpine
+FROM node:18
 
 # Set the working directory within the container
 WORKDIR /src
@@ -9,6 +9,10 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
+
+RUN npm install react-router-dom
+
+RUN npm install -D tailwindcss postcss autoprefixer
 
 # Copy the rest of the application code
 COPY . .
