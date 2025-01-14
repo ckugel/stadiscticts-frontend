@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const url = "http://localhost:8080";
 
 const TeamTable = () => {
-    const [teamData, setTeamData] = useState({ players: []});
+    const [teamData, setTeamData] = useState({ players: [] });
     const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending' });
     const { teamName, year } = useParams();
 
@@ -65,7 +65,9 @@ const TeamTable = () => {
                 <tbody>
                 {sortedPlayers.map((player, index) => (
                     <tr key={index}>
-                        <td>{player.name}</td>
+                        <td>
+                            <Link to={`/players/${player.name}`}>{player.name}</Link>
+                        </td>
                         <td>{player.year}</td>
                         <td>{player.rankingValue}</td>
                     </tr>
