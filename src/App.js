@@ -6,6 +6,7 @@ import PlayerTable from './components/PlayerTable';
 import TeamTable from "./components/TeamTable";
 import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResultsPage from "./components/SearchResultsPage";
+import MainPage from "./components/MainPage";
 
 function App() {
 	const [options, setOptions] = useState({ players: [], teams: [] });
@@ -34,6 +35,7 @@ function App() {
 				</header>
 				<main>
 					<Routes>
+						<Route path="/" element={<MainPage />} />
 						<Route path="/players/:username" element={<PlayerTable />} />
 						<Route path="/team/:teamName/:year?" element={<TeamTable />} />
 						<Route path="/search" element={<SearchResultsPage />} />
