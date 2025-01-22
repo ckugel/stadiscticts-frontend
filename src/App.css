@@ -49,3 +49,20 @@
 main {
     padding: 20px;
 }
+
+/* src/App.css */
+body.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.theme-toggle-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}

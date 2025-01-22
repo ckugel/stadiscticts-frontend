@@ -1,6 +1,7 @@
 // src/components/SearchResultsPage.js
 import React, { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Card from './Card';
 
 const SearchResultsPage = () => {
     const location = useLocation();
@@ -11,7 +12,6 @@ const SearchResultsPage = () => {
         fetch(`http://localhost:8080/search?query=${query}`)
             .then(response => response.json())
             .then(data => {
-                // Remove quotes from player names and filter out empty strings
                 const players = data.players.map(player => player.replace(/"/g, '')).filter(player => player.trim() !== '');
                 const teams = data.teams.map(team => team.replace(/"/g, '')).filter(team => team.trim() !== '' && team !== 'Team: ');
                 setSearchResults({ players, teams });
@@ -26,25 +26,17 @@ const SearchResultsPage = () => {
                 {searchResults.players.length > 0 && (
                     <div className="mb-4">
                         <h3 className="text-xl font-semibold mb-2">Players</h3>
-                        <ul className="list-disc list-inside">
-                            {searchResults.players.map((player, index) => (
-                                <li key={index} className="mb-1">
-                                    <Link to={`/players/${player}`}>{player}</Link>
-                                </li>
-                            ))}
-                        </ul>
+                        {searchResults.players.map((player, index) => (
+                            <Card key={index} name={player} link={`/players/${player}`} />
+                        ))}
                     </div>
                 )}
                 {searchResults.teams.length > 0 && (
                     <div>
                         <h3 className="text-xl font-semibold mb-2">Teams</h3>
-                        <ul className="list-disc list-inside">
-                            {searchResults.teams.map((team, index) => (
-                                <li key={index} className="mb-1">
-                                    <Link to={`/team/${team}`}>{team}</Link>
-                                </li>
-                            ))}
-                        </ul>
+                        {searchResults.teams.map((team, index) => (
+                            <Card key={index} name={team} link={`/team/${team}`} />
+                        ))}
                     </div>
                 )}
             </div>

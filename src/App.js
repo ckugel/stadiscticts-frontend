@@ -7,9 +7,11 @@ import TeamTable from "./components/TeamTable";
 import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResultsPage from "./components/SearchResultsPage";
 import MainPage from "./components/MainPage";
+import ThemeToggleButton from './components/ThemeToggleButton';
 
 function App() {
 	const [options, setOptions] = useState({ players: [], teams: [] });
+	const [theme, setTheme] = useState('light');
 
 	const fetchOptions = (query = '') => {
 		fetch(`http://localhost:8080/search?q=${query}`)
@@ -26,12 +28,23 @@ function App() {
 		fetchOptions(query);
 	};
 
+	const toggleTheme = () => {
+		setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+	};
+
+	useEffect(() => {
+		document.body.className = theme;
+	}, [theme]);
+
 	return (
 		<Router>
-			<div className="App">
+			<div className={`App ${theme}`}>
 				<header className="App-header flex justify-between items-center p-4">
-					<h1 className="text-3xl font-bold underline">SITE NAME</h1>
-					<SearchBar onSearch={handleSearch} />
+					<h1 className="text-3xl font-bold underline">Sta<u><i>disc</i></u>ticts</h1>
+					<div className="flex items-center">
+						<SearchBar onSearch={handleSearch} />
+						<ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
+					</div>
 				</header>
 				<main>
 					<Routes>
