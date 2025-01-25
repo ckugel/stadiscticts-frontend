@@ -1,4 +1,3 @@
-// src/components/ThemeToggleButton.js
 import React from 'react';
 
 const ThemeToggleButton = ({ theme, toggleTheme }) => {

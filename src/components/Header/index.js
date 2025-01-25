@@ -1,39 +1,35 @@
-import { Box, IconButton, Text, Flex } from '@chakra-ui/react'
-import { ChevronRightIcon } from '@chakra-ui/icons'
-import SearchBar from '../SearchBar/SearchBar'
+import React from 'react';
+import PropTypes from 'prop-types';
+import SearchBar from '../SearchBar/SearchBar';
 
-interface Props {
-    onShowSidebar: Function,
-    showSidebarButton: boolean,
-    onSearch: Function
-}
-
-const Header = ({ showSidebarButton = true, onShowSidebar, onSearch }: Props) => {
+const Header = ({ showSidebarButton = true, onShowSidebar, onSearch }) => {
     return (
-        <Flex bg="#151515" p={4} color="white" justifyContent="center" w="100%">
-            <Box flex="1">
+        <div style={{ backgroundColor: '#151515', padding: '16px', color: 'white', display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <div style={{ flex: 1 }}>
                 {showSidebarButton && (
-                    <IconButton
-                        icon={<ChevronRightIcon w={5} h={5} />}
-                        colorScheme="white"
-                        variant="outline"
-                        size="sm"
-                        onClick={onShowSidebar}
-                    />
+                    <button onClick={onShowSidebar} style={{ color: 'white', border: '1px solid white', padding: '8px' }}>
+                        {'>'}
+                    </button>
                 )}
-            </Box>
+            </div>
             {!showSidebarButton && (
-                <Box display="flex" ml="auto" alignItems="center" justifyContent="center" h="30px">
-                    <Text fontSize="md" mr="5">About Us</Text>
-                    <Text fontSize="md" mr="5">Contact</Text>
-                    <Text fontSize="md" mr="5">Terms</Text>
-                </Box>
+                <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '30px' }}>
+                    <span style={{ fontSize: '16px', marginRight: '20px' }}>About Us</span>
+                    <span style={{ fontSize: '16px', marginRight: '20px' }}>Contact</span>
+                    <span style={{ fontSize: '16px', marginRight: '20px' }}>Terms</span>
+                </div>
             )}
-            <Box display="flex" ml="auto" alignItems="center" justifyContent="center" h="30px">
+            <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '30px' }}>
                 <SearchBar onSearch={onSearch} />
-            </Box>
-        </Flex>
-    )
-}
+            </div>
+        </div>
+    );
+};
 
-export default Header
+Header.propTypes = {
+    showSidebarButton: PropTypes.bool,
+    onShowSidebar: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
+};
+
+export default Header;

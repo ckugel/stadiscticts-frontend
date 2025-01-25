@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import PlayerTable from './components/PlayerTable';
 import TeamTable from "./components/TeamTable";
@@ -9,12 +9,14 @@ import SearchResultsPage from "./components/SearchResultsPage";
 import MainPage from "./components/MainPage";
 import ThemeToggleButton from './components/ThemeToggleButton';
 
+const FETCH_URL = 'http://localhost:8080';
+
 function App() {
 	const [options, setOptions] = useState({ players: [], teams: [] });
 	const [theme, setTheme] = useState('light');
 
 	const fetchOptions = (query = '') => {
-		fetch(`http://localhost:8080/search?q=${query}`)
+		fetch(FETCH_URL + `/search?q=${query}`)
 			.then(response => response.json())
 			.then(data => setOptions(data))
 			.catch(error => console.error('Error fetching search options:', error));
@@ -40,7 +42,7 @@ function App() {
 		<Router>
 			<div className={`App ${theme}`}>
 				<header className="App-header flex justify-between items-center p-4">
-					<h1 className="text-3xl font-bold underline">Sta<u><i>disc</i></u>ticts</h1>
+					<h1 className="text-3xl font-bold underline"><Link>Sta<u><i>disc</i></u>ticts</Link></h1>
 					<div className="flex items-center">
 						<SearchBar onSearch={handleSearch} />
 						<ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
