@@ -13,13 +13,13 @@ const Header = ({ showSidebarButton = true, onShowSidebar, onSearch }) => {
                 )}
             </div>
             {!showSidebarButton && (
-                <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '30px' }}>
+                <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '20px' }}>
                     <span style={{ fontSize: '16px', marginRight: '20px' }}>About Us</span>
                     <span style={{ fontSize: '16px', marginRight: '20px' }}>Contact</span>
                     <span style={{ fontSize: '16px', marginRight: '20px' }}>Terms</span>
                 </div>
             )}
-            <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '30px' }}>
+            <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '20px' }}>
                 <SearchBar onSearch={onSearch} />
             </div>
         </div>

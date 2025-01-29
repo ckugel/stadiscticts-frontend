@@ -42,7 +42,7 @@ function App() {
 		<Router>
 			<div className={`App ${theme}`}>
 				<header className="App-header flex justify-between items-center p-4">
-					<h1 className="text-3xl font-bold underline"><Link>Sta<u><i>disc</i></u>ticts</Link></h1>
+					<h1 className="text-3xl font-bold underline"><Link to = "/" >Sta<u><i>disc</i></u>ticts</Link></h1>
 					<div className="flex items-center">
 						<SearchBar onSearch={handleSearch} />
 						<ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
