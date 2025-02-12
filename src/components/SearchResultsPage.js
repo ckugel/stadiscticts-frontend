@@ -1,4 +1,3 @@
-// src/components/SearchResultsPage.js
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Card from './Card';
@@ -13,7 +12,13 @@ const SearchResultsPage = () => {
             .then(response => response.json())
             .then(data => {
                 const players = data.players.map(player => player.replace(/"/g, '')).filter(player => player.trim() !== '');
-                const teams = data.teams.map(team => team.replace(/"/g, '')).filter(team => team.trim() !== '' && team !== 'Team: ');
+                const teams = data.teams
+                    .filter(team => team.teamName && team.teamName.trim() !== '')
+                    .map(team => ({
+                        teamName: team.teamName.replace(/"/g, ''),
+                        year: team.year,
+                        league: team.league
+                    }));
                 setSearchResults({ players, teams });
             })
             .catch(error => console.error('Error fetching search results:', error));
@@ -35,7 +40,12 @@ const SearchResultsPage = () => {
                     <div>
                         <h3 className="text-xl font-semibold mb-2">Teams</h3>
                         {searchResults.teams.map((team, index) => (
-                            <Card key={index} name={team} link={`/team/${team}`} />
+                            <Card
+                                key={index}
+                                name={`${team.teamName} (${team.year})`}
+                                link={`/team/${team.teamName}`}
+                                additionalInfo={`League: ${team.league}`}
+                            />
                         ))}
                     </div>
                 )}
@@ -45,3 +55,4 @@ const SearchResultsPage = () => {
 };
 
 export default SearchResultsPage;
+      
