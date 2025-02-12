@@ -5,7 +5,8 @@ const url = "http://localhost:8080";
 
 const TeamTable = () => {
     const [teamData, setTeamData] = useState({ players: [] });
-    const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending' });
+    const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending'});
+    const [league, setLeague] = useState('');
     const { teamName, year } = useParams();
 
     useEffect(() => {
@@ -14,13 +15,16 @@ const TeamTable = () => {
             if (year) {
                 endpoint += `/${year}`;
             }
+            if (league) {
+                endpoint += `/${league}`;
+            }
             console.log(endpoint);
             fetch(endpoint)
                 .then(response => response.json())
                 .then(data => setTeamData(data))
                 .catch(error => console.error('Error fetching team data:', error));
         }
-    }, [teamName, year]);
+    }, [teamName, league, year]);
 
     const sortedPlayers = [...teamData.players].sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {

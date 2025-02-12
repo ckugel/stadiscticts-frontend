@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchBar from '../SearchBar/SearchBar';
+import '../../App.css';
 
 const Header = ({ showSidebarButton = true, onShowSidebar, onSearch }) => {
     return (

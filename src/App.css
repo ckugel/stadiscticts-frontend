@@ -4,18 +4,18 @@
 
 .App {
     text-align: center;
+    height: 100vh;
+}
+
+#root html body {
+height: 100vh;
 }
 
 .App-header {
-    background-color: #282c34;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    font-size: calc(10px + 2vmin);
+    padding: 20px;
     color: white;
+    text-align: center;
+    background-color: #282c34;
 }
 
 .search-bar-container {
@@ -48,16 +48,16 @@
 
 main {
     padding: 20px;
+    height: max-content;
 }
 
 body.light {
-    background-color: #ffffff;
-    color: #000000;
+    height: 100vh;
 }
 
 body.dark {
-    background-color: #000000;
     color: #ffffff;
+    height: 100vh;
 }
 
 .theme-toggle-button {

@@ -10,7 +10,7 @@ const MainPage = () => {
 
     return (
         <div className="main-page">
-            <header className="App-header">
+            <header className="main-page-header">
                 <h1>Welcome to Stadiscticts</h1>
             </header>
             <main>
