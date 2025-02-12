@@ -42,9 +42,9 @@ const SearchResultsPage = () => {
                         {searchResults.teams.map((team, index) => (
                             <Card
                                 key={index}
-                                name={`${team.teamName} (${team.year})`}
+                                name={`${team.teamName}`}
                                 link={`/team/${team.teamName}`}
-                                additionalInfo={`League: ${team.league}`}
+                                league={team.league}
                             />
                         ))}
                     </div>
