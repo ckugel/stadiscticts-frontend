@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
@@ -52,7 +51,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<MainPage />} />
 						<Route path="/players/:username" element={<PlayerTable />} />
-						<Route path="/team/:teamName/:year?" element={<TeamTable />} />
+						<Route path="/team/:teamName/:year?/:league?" element={<TeamTable />} />
 						<Route path="/search" element={<SearchResultsPage />} />
 					</Routes>
 				</main>

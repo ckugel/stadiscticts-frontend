@@ -43,7 +43,7 @@ const SearchResultsPage = () => {
                             <Card
                                 key={index}
                                 name={`${team.teamName}`}
-                                link={`/team/${team.teamName}`}
+                                link={`/team/${team.teamName}/all/${team.league}`}
                                 league={team.league}
                             />
                         ))}

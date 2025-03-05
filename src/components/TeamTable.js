@@ -6,17 +6,16 @@ const url = "http://localhost:8080";
 const TeamTable = () => {
     const [teamData, setTeamData] = useState({ players: [] });
     const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending'});
-    const [league, setLeague] = useState('');
-    const { teamName, year } = useParams();
+    const { teamName, year, league } = useParams();
 
     useEffect(() => {
         if (teamName) {
             let endpoint = `${url}/team/${teamName}`;
-            if (year) {
+            if (year && year !== 'all') {
                 endpoint += `/${year}`;
             }
             if (league) {
-                endpoint += `/${league}`;
+                endpoint += `?league=${league}`;
             }
             console.log(endpoint);
             fetch(endpoint)
