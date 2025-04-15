@@ -12,7 +12,7 @@ const FETCH_URL = 'http://localhost:8080';
 
 function App() {
 	const [options, setOptions] = useState({ players: [], teams: [] });
-	const [theme, setTheme] = useState('light');
+	const [theme, setTheme] = useState('dark');
 
 	const fetchOptions = (query = '') => {
 		fetch(FETCH_URL + `/search?q=${query}`)

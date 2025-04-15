@@ -17,7 +17,6 @@ const MainPage = () => {
                 <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '30px' }}>
                     <SearchBar onSearch={onSearch} />
                 </div>
-                <p>Explore players and teams:</p>
             </main>
         </div>
     );

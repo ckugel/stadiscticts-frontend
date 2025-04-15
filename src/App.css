@@ -13,17 +13,29 @@ height: 100vh;
 
 .App-header {
     padding: 20px;
-    color: white;
+    color: #18e9ef;
     text-align: center;
-    background-color: #282c34;
+    background-color: #074445;
 }
 
 .search-bar-container {
-    margin-left: auto;
+    margin: auto;
+    width: 20vw;
 }
 
 .search-bar input {
     color: black;
+    border-radius: 5px;
+    margin: auto;
+    width: 20vw;
+}
+
+.search-button {
+    background-color: #18e9ef;
+	color: #074445;
+	border-radius: 5px;
+	padding: 5px 10px;
+	cursor: pointer;
 }
 
 .App h1 {
@@ -42,22 +54,18 @@ height: 100vh;
     text-align: left;
 }
 
-.table th {
-    background-color: #f2f2f2;
-}
-
 main {
-    padding: 20px;
     height: max-content;
 }
 
 body.light {
-    height: 100vh;
+    color: #A8A8A8;
+    background-color: #ffffff;
 }
 
 body.dark {
     color: #ffffff;
-    height: 100vh;
+    background-color: #121212;
 }
 
 .theme-toggle-button {

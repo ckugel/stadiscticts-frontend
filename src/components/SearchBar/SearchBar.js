@@ -25,7 +25,7 @@ const SearchBar = ({ onSearch }) => {
                 onKeyDown={handeKeyPress}
                 placeholder="Search for players or teams"
             />
-            <button onClick={handleSearch}>Search</button>
+            <button className="search-button" onClick={handleSearch}><p> Search</p></button>
         </div>
     );
 };
