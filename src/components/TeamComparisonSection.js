@@ -48,7 +48,14 @@ const TeamComparisonSection = ({ options, theme }) => {
         setLoading(true);
         setError('');
         try {
-            const results = await Promise.all(inputs.map((name, idx) => fetchTeamData(name, idx)));
+            // Filter out empty team names and ensure inputs is an array
+            const validInputs = Array.isArray(inputs) ? inputs.filter(name => name && name.trim()) : [];
+            if (validInputs.length === 0) {
+                setError('Please enter team names to compare');
+                setLoading(false);
+                return;
+            }
+            const results = await Promise.all(validInputs.map((name, idx) => fetchTeamData(name, idx)));
             setTeamsData(results);
             // League check
             if (results.length === 2 && results[0].league && results[1].league && results[0].league !== results[1].league) {
@@ -113,7 +120,7 @@ const TeamComparisonSection = ({ options, theme }) => {
                         )}
                     </div>
                 ))}
-                <button onClick={handleCompare} style={{ padding: 8, fontSize: 16, background: '#18e9ef', color: '#074445', border: 'none', borderRadius: 4 }}>Compare</button>
+                <button onClick={() => handleCompare()} style={{ padding: 8, fontSize: 16, background: '#18e9ef', color: '#074445', border: 'none', borderRadius: 4 }}>Compare</button>
             </div>
             {loading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
