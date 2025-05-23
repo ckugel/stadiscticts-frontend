@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import Card from './Card';
 import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const TeamTable = () => {
@@ -123,8 +122,20 @@ const TeamTable = () => {
                         overflowY: 'auto' 
                     }}>
                         {searchResults.map((team, i) => (
-                            <div key={i} onMouseDown={() => handleSelectTeam(team)} style={{ cursor: 'pointer' }}>
-                                <Card name={team.teamName} link={null} league={team.league} />
+                            <div 
+                                key={i} 
+                                onMouseDown={() => handleSelectTeam(team)} 
+                                style={{ 
+                                    cursor: 'pointer', 
+                                    padding: '8px 12px', 
+                                    borderBottom: i < searchResults.length - 1 ? '1px solid #eee' : 'none',
+                                    color: '#000'
+                                }}
+                                onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
+                                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                            >
+                                <div style={{ fontWeight: 'bold' }}>{team.teamName}</div>
+                                {team.league && <div style={{ fontSize: '12px', color: '#888' }}>League: {team.league}</div>}
                             </div>
                         ))}
                     </div>
