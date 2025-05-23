@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Card from './Card';
+import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const SearchResultsPage = () => {
     const location = useLocation();
@@ -8,7 +9,7 @@ const SearchResultsPage = () => {
     const [searchResults, setSearchResults] = useState({ players: [], teams: [] });
 
     useEffect(() => {
-        fetch(`http://localhost:8080/search?query=${query}`)
+        fetch(`${API_BASE_URL}${ENDPOINTS.SEARCH}?query=${query}`)
             .then(response => response.json())
             .then(data => {
                 const players = data.players.map(player => player.replace(/"/g, '')).filter(player => player.trim() !== '');

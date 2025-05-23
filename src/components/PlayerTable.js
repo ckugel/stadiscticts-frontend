@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-const url = "http://localhost:8080";
+import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const PlayerTable = () => {
     const [data, setData] = useState([]);
@@ -11,9 +10,9 @@ const PlayerTable = () => {
     useEffect(() => {
         let endpoint = '';
         if (username) {
-            endpoint = `${url}/player/${username}`;
+            endpoint = `${API_BASE_URL}${ENDPOINTS.PLAYER}/${username}`;
         } else if (teamName) {
-            endpoint = `${url}/team/${teamName}`;
+            endpoint = `${API_BASE_URL}${ENDPOINTS.TEAM}/${teamName}`;
         }
 
 	if (leagueName) {

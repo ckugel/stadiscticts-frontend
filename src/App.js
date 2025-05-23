@@ -9,15 +9,14 @@ import MainPage from "./components/MainPage";
 import ThemeToggleButton from './components/ThemeToggleButton';
 import TeamComparisonBoxPlot from "./components/TeamComparisonBoxPlot";
 import TeamComparisonSection from "./components/TeamComparisonSection";
-
-const FETCH_URL = 'http://localhost:8080';
+import { API_BASE_URL, ENDPOINTS } from './constants/api';
 
 function App() {
 	const [options, setOptions] = useState({ players: [], teams: [] });
 	const [theme, setTheme] = useState('dark');
 
 	const fetchOptions = (query = '') => {
-		fetch(FETCH_URL + `/search?q=${query}`)
+		fetch(`${API_BASE_URL}${ENDPOINTS.SEARCH}?q=${query}`)
 			.then(response => response.json())
 			.then(data => setOptions(data))
 			.catch(error => console.error('Error fetching search options:', error));
@@ -60,7 +59,7 @@ function App() {
 						<Route path="/players/:username" element={<PlayerTable />} />
 						<Route path="/team/:teamName/:year?/:league?" element={<TeamTable />} />
 						<Route path="/search" element={<SearchResultsPage />} />
-						<Route path="/compare-teams" element={<TeamComparisonSection />} />
+						<Route path="/compare-teams" element={<TeamComparisonSection options={options} theme={theme} />} />
 					</Routes>
 				</main>
 			</div>

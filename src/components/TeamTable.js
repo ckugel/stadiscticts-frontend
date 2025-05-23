@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-
-const url = "http://localhost:8080";
+import Card from './Card';
+import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const TeamTable = () => {
     const [teamData, setTeamData] = useState({ players: [] });
     const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending'});
     const [compareInput, setCompareInput] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
     const { teamName, year, league } = useParams();
     const navigate = useNavigate();
+    const inputRef = useRef();
 
     useEffect(() => {
         if (teamName) {
-            let endpoint = `${url}/team/${teamName}`;
+            let endpoint = `${API_BASE_URL}${ENDPOINTS.TEAM}/${teamName}`;
             if (year && year !== 'all') {
                 endpoint += `/${year}`;
             }
@@ -52,24 +55,91 @@ const TeamTable = () => {
         setSortConfig({ key, direction });
     };
 
+    const handleCompareInputChange = async (value) => {
+        setCompareInput(value);
+        setShowDropdown(true);
+        if (value.length > 1) {
+            try {
+                const res = await fetch(`${API_BASE_URL}${ENDPOINTS.SEARCH}?query=${encodeURIComponent(value)}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setSearchResults(data.teams || []);
+                }
+            } catch {
+                setSearchResults([]);
+            }
+        } else {
+            setSearchResults([]);
+        }
+    };
+
+    const handleSelectTeam = (team) => {
+        setCompareInput(team.teamName);
+        setShowDropdown(false);
+        setSearchResults([]);
+    };
+
+    const handleCompareClick = () => {
+        if (compareInput.trim()) {
+            navigate(`/compare-teams?team1=${teamName}&team2=${compareInput.trim()}`);
+        }
+    };
+
     return (
         <div>
             <h2>Team: {teamName}</h2>
-            <div style={{ marginBottom: 16 }}>
+            <div style={{ marginBottom: 16, position: 'relative' }}>
                 <input
+                    ref={inputRef}
                     type="text"
                     placeholder="Compare to another team..."
                     value={compareInput}
-                    onChange={e => setCompareInput(e.target.value)}
-                    style={{ padding: 8, fontSize: 16, marginRight: 8 }}
-                />
-                <button
-                    onClick={() => {
-                        if (compareInput.trim()) {
-                            navigate(`/compare-teams?team1=${teamName}&team2=${compareInput.trim()}`);
-                        }
+                    onChange={e => handleCompareInputChange(e.target.value)}
+                    onFocus={() => setShowDropdown(true)}
+                    onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
+                    style={{ 
+                        padding: 8, 
+                        fontSize: 16, 
+                        marginRight: 8,
+                        color: '#000',
+                        background: '#fff',
+                        border: '1px solid #18e9ef',
+                        borderRadius: 4,
+                        minWidth: 200
                     }}
-                    style={{ padding: 8, fontSize: 16 }}
+                    autoComplete="off"
+                />
+                {showDropdown && searchResults.length > 0 && (
+                    <div style={{ 
+                        position: 'absolute', 
+                        top: 40, 
+                        left: 0, 
+                        zIndex: 10, 
+                        background: '#fff', 
+                        border: '1px solid #18e9ef', 
+                        borderRadius: 4, 
+                        width: '300px', 
+                        maxHeight: 200, 
+                        overflowY: 'auto' 
+                    }}>
+                        {searchResults.map((team, i) => (
+                            <div key={i} onMouseDown={() => handleSelectTeam(team)} style={{ cursor: 'pointer' }}>
+                                <Card name={team.teamName} link={null} league={team.league} />
+                            </div>
+                        ))}
+                    </div>
+                )}
+                <button
+                    onClick={handleCompareClick}
+                    style={{ 
+                        padding: 8, 
+                        fontSize: 16,
+                        background: '#18e9ef',
+                        color: '#074445',
+                        border: 'none',
+                        borderRadius: 4,
+                        cursor: 'pointer'
+                    }}
                 >
                     Compare
                 </button>

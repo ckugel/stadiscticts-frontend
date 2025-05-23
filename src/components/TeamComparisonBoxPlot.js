@@ -1,7 +1,7 @@
 // src/components/TeamComparisonBoxPlot.js
 import React from 'react';
 import {
-  Chart,
+  Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -10,9 +10,9 @@ import {
   Legend
 } from 'chart.js';
 import { BoxPlot, BoxAndWhiskers } from 'chartjs-chart-box-and-violin-plot';
-import { Chart as ChartJS } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 
-// Chart.register(BoxPlot, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend, BoxAndWhiskers);
+ChartJS.register(BoxPlot, BoxAndWhiskers, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend);
 
 const TeamComparisonBoxPlot = ({ teams }) => {
     // teams: [{ name: 'Team A', players: [{ name, rankingValue }, ...] }, ...]
@@ -45,7 +45,7 @@ const TeamComparisonBoxPlot = ({ teams }) => {
     };
     return (
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
-            <ChartJS type="boxplot" data={data} options={options} />
+            <Chart type="boxplot" data={data} options={options} />
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import TeamComparisonBoxPlot from './TeamComparisonBoxPlot';
 import Card from './Card';
+import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const TeamComparisonSection = ({ options, theme }) => {
     const [teamInputs, setTeamInputs] = useState(['', '']);
@@ -22,7 +23,7 @@ const TeamComparisonSection = ({ options, theme }) => {
         // Try to auto-complete using backend search
         if (value.length > 1) {
             try {
-                const res = await fetch(`/search?query=${encodeURIComponent(value)}`);
+                const res = await fetch(`${API_BASE_URL}${ENDPOINTS.SEARCH}?query=${encodeURIComponent(value)}`);
                 if (res.ok) {
                     const data = await res.json();
                     setSearchResults(results => results.map((r, i) => i === idx ? (data.teams || []) : r));
@@ -36,7 +37,7 @@ const TeamComparisonSection = ({ options, theme }) => {
     };
 
     const fetchTeamData = async (teamName, idx) => {
-        const res = await fetch(`/team/${teamName}`);
+        const res = await fetch(`${API_BASE_URL}${ENDPOINTS.TEAM}/${teamName}`);
         if (!res.ok) throw new Error(`Failed to fetch team: ${teamName}`);
         const data = await res.json();
         // Try to get league from data, fallback to empty string
