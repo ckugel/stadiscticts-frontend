@@ -9,10 +9,10 @@ import {
   Title,
   Legend
 } from 'chart.js';
-import { BoxPlotController, BoxAndWiskers } from 'chartjs-chart-box-and-violin-plot';
+import { BoxPlot, BoxAndWhiskers } from 'chartjs-chart-box-and-violin-plot';
 import { Chart as ChartJS } from 'react-chartjs-2';
 
-Chart.register(BoxPlotController, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend, BoxAndWiskers);
+Chart.register(BoxPlot, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend, BoxAndWhiskers);
 
 const TeamComparisonBoxPlot = ({ teams }) => {
     // teams: [{ name: 'Team A', players: [{ name, rankingValue }, ...] }, ...]
