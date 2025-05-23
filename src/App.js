@@ -16,7 +16,7 @@ function App() {
 	const [theme, setTheme] = useState('dark');
 
 	const fetchOptions = (query = '') => {
-		fetch(`${API_BASE_URL}${ENDPOINTS.SEARCH}?q=${query}`)
+		fetch(`${API_BASE_URL}${ENDPOINTS.SEARCH}?query=${encodeURIComponent(query)}`)
 			.then(response => response.json())
 			.then(data => setOptions(data))
 			.catch(error => console.error('Error fetching search options:', error));

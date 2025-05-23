@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import TeamComparisonBoxPlot from './TeamComparisonBoxPlot';
-import Card from './Card';
 import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const TeamComparisonSection = ({ options, theme }) => {
@@ -44,7 +43,7 @@ const TeamComparisonSection = ({ options, theme }) => {
         return { name: teamName, players: data.players || [], league: data.league || (data.players && data.players[0] && data.players[0].league) || '' };
     };
 
-    const handleCompare = async (inputs = teamInputs) => {
+    const handleCompare = useCallback(async (inputs = teamInputs) => {
         setLoading(true);
         setError('');
         try {
@@ -65,7 +64,7 @@ const TeamComparisonSection = ({ options, theme }) => {
             setError(e.message);
         }
         setLoading(false);
-    };
+    }, [teamInputs]);
 
     const handleSelectTeam = (idx, team) => {
         const newInputs = [...teamInputs];
@@ -85,7 +84,7 @@ const TeamComparisonSection = ({ options, theme }) => {
             setTeamInputs([team1, team2]);
             handleCompare([team1, team2]);
         }
-    }, [location.search]);
+    }, [location.search, handleCompare]);
 
     return (
         <section style={{ padding: 32 }}>
@@ -107,8 +106,20 @@ const TeamComparisonSection = ({ options, theme }) => {
                         {showDropdown[idx] && searchResults[idx].length > 0 && (
                             <div style={{ position: 'absolute', top: 40, left: 0, zIndex: 10, background: theme === 'dark' ? '#222' : '#fff', border: '1px solid #18e9ef', borderRadius: 4, width: '100%', maxHeight: 200, overflowY: 'auto' }}>
                                 {searchResults[idx].map((team, i) => (
-                                    <div key={i} onMouseDown={() => handleSelectTeam(idx, team)} style={{ cursor: 'pointer' }}>
-                                        <Card name={team.teamName} link={null} league={team.league} />
+                                    <div 
+                                        key={i} 
+                                        onMouseDown={() => handleSelectTeam(idx, team)} 
+                                        style={{ 
+                                            cursor: 'pointer', 
+                                            padding: '8px 12px', 
+                                            borderBottom: i < searchResults[idx].length - 1 ? '1px solid #eee' : 'none',
+                                            color: theme === 'dark' ? '#fff' : '#000'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.backgroundColor = theme === 'dark' ? '#333' : '#f0f0f0'}
+                                        onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                                    >
+                                        <div style={{ fontWeight: 'bold' }}>{team.teamName}</div>
+                                        {team.league && <div style={{ fontSize: '12px', color: '#888' }}>League: {team.league}</div>}
                                     </div>
                                 ))}
                             </div>

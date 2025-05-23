@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const PlayerTable = () => {
@@ -69,7 +69,7 @@ const PlayerTable = () => {
                 <tr key={index}>
                     <td>{item.name}</td>
                     <td>{item.year}</td>
-                    <td><a href={`/team/${item.team}`}>{item.team}</a></td>
+                    <td><Link to={`/team/${item.team}`}>{item.team}</Link></td>
                     <td>{item.rankingValue}</td>
                 </tr>
             ))}
