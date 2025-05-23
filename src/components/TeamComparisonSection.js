@@ -1,4 +1,3 @@
-// src/components/TeamComparisonSection.js
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TeamComparisonBoxPlot from './TeamComparisonBoxPlot';
