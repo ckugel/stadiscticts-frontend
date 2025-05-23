@@ -9,7 +9,7 @@ import {
   Title,
   Legend
 } from 'chart.js';
-import { BoxPlot, BoxAndWhiskers } from 'chartjs-chart-box-and-violin-plot';
+import 'chartjs-chart-box-and-violin-plot';
 import { Chart } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -18,9 +18,7 @@ ChartJS.register(
   BarElement,
   Tooltip,
   Title,
-  Legend,
-  BoxPlot,
-  BoxAndWhiskers
+  Legend
 );
 
 
