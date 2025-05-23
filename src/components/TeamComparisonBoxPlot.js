@@ -1,25 +1,37 @@
 // src/components/TeamComparisonBoxPlot.js
 import React from 'react';
-import { Chart, BoxPlotController, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend } from 'chart.js';
-import { BoxPlot } from 'react-chartjs-2';
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Title,
+  Legend
+} from 'chart.js';
+import { BoxPlotController, BoxAndWiskers } from 'chartjs-chart-box-and-violin-plot';
+import { Chart as ChartJS } from 'react-chartjs-2';
 
-Chart.register(BoxPlotController, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend);
+Chart.register(BoxPlotController, CategoryScale, LinearScale, BarElement, Tooltip, Title, Legend, BoxAndWiskers);
 
 const TeamComparisonBoxPlot = ({ teams }) => {
     // teams: [{ name: 'Team A', players: [{ name, rankingValue }, ...] }, ...]
     const labels = teams.map(team => team.name);
     const data = {
         labels,
-        datasets: teams.map((team, idx) => ({
-            label: team.name,
-            backgroundColor: `rgba(${100 + idx * 50}, 99, 255, 0.5)` ,
-            borderColor: `rgba(${100 + idx * 50}, 99, 255, 1)` ,
-            borderWidth: 1,
-            outlierColor: '#999999',
-            padding: 10,
-            itemRadius: 0,
-            data: [team.players.map(p => p.rankingValue)]
-        }))
+        datasets: [
+            {
+                label: 'Player Ranking Value',
+                backgroundColor: 'rgba(24, 233, 239, 0.5)',
+                borderColor: 'rgba(7, 68, 69, 1)',
+                borderWidth: 1,
+                outlierColor: '#999999',
+                padding: 10,
+                itemRadius: 0,
+                data: teams.map(team => team.players.map(p => p.rankingValue)),
+                type: 'boxplot',
+            }
+        ]
     };
     const options = {
         responsive: true,
@@ -33,7 +45,7 @@ const TeamComparisonBoxPlot = ({ teams }) => {
     };
     return (
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
-            <BoxPlot data={data} options={options} />
+            <ChartJS type="boxplot" data={data} options={options} />
         </div>
     );
 };
