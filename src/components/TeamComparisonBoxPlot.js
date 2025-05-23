@@ -12,6 +12,17 @@ import {
 import { BoxPlot, BoxAndWhiskers } from 'chartjs-chart-box-and-violin-plot';
 import { Chart } from 'react-chartjs-2';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Title,
+  Legend,
+  BoxPlot,
+  BoxAndWhiskers
+);
+
 
 const TeamComparisonBoxPlot = ({ teams }) => {
     // teams: [{ name: 'Team A', players: [{ name, rankingValue }, ...] }, ...]
