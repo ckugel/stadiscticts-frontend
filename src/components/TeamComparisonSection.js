@@ -43,12 +43,14 @@ const TeamComparisonSection = ({ options, theme }) => {
         return { name: teamName, players: data.players || [], league: data.league || (data.players && data.players[0] && data.players[0].league) || '' };
     };
 
-    const handleCompare = useCallback(async (inputs = teamInputs) => {
+    const handleCompare = useCallback(async (inputs) => {
         setLoading(true);
         setError('');
         try {
+            // Use passed inputs or current teamInputs if no inputs provided
+            const inputsToUse = inputs || teamInputs;
             // Filter out empty team names and ensure inputs is an array
-            const validInputs = Array.isArray(inputs) ? inputs.filter(name => name && name.trim()) : [];
+            const validInputs = Array.isArray(inputsToUse) ? inputsToUse.filter(name => name && name.trim()) : [];
             if (validInputs.length === 0) {
                 setError('Please enter team names to compare');
                 setLoading(false);
@@ -64,7 +66,7 @@ const TeamComparisonSection = ({ options, theme }) => {
             setError(e.message);
         }
         setLoading(false);
-    }, [teamInputs]);
+    }, []);
 
     const handleSelectTeam = (idx, team) => {
         const newInputs = [...teamInputs];
@@ -131,7 +133,7 @@ const TeamComparisonSection = ({ options, theme }) => {
                         )}
                     </div>
                 ))}
-                <button onClick={() => handleCompare()} style={{ padding: 8, fontSize: 16, background: '#18e9ef', color: '#074445', border: 'none', borderRadius: 4 }}>Compare</button>
+                <button onClick={() => handleCompare(teamInputs)} style={{ padding: 8, fontSize: 16, background: '#18e9ef', color: '#074445', border: 'none', borderRadius: 4 }}>Compare</button>
             </div>
             {loading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
