@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 const url = "http://localhost:8080";
 
 const TeamTable = () => {
     const [teamData, setTeamData] = useState({ players: [] });
     const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending'});
+    const [compareInput, setCompareInput] = useState('');
     const { teamName, year, league } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (teamName) {
@@ -53,6 +55,25 @@ const TeamTable = () => {
     return (
         <div>
             <h2>Team: {teamName}</h2>
+            <div style={{ marginBottom: 16 }}>
+                <input
+                    type="text"
+                    placeholder="Compare to another team..."
+                    value={compareInput}
+                    onChange={e => setCompareInput(e.target.value)}
+                    style={{ padding: 8, fontSize: 16, marginRight: 8 }}
+                />
+                <button
+                    onClick={() => {
+                        if (compareInput.trim()) {
+                            navigate(`/compare-teams?team1=${teamName}&team2=${compareInput.trim()}`);
+                        }
+                    }}
+                    style={{ padding: 8, fontSize: 16 }}
+                >
+                    Compare
+                </button>
+            </div>
             <table className="table">
                 <thead>
                 <tr>

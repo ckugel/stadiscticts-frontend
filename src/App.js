@@ -7,6 +7,8 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResultsPage from "./components/SearchResultsPage";
 import MainPage from "./components/MainPage";
 import ThemeToggleButton from './components/ThemeToggleButton';
+import TeamComparisonBoxPlot from "./components/TeamComparisonBoxPlot";
+import TeamComparisonSection from "./components/TeamComparisonSection";
 
 const FETCH_URL = 'http://localhost:8080';
 
@@ -47,12 +49,18 @@ function App() {
 						<ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
 					</div>
 				</header>
+				<nav style={{ margin: '16px 0' }}>
+					<Link to="/compare-teams" style={{ color: '#18e9ef', fontWeight: 'bold', marginLeft: 16 }}>
+						Compare Teams
+					</Link>
+				</nav>
 				<main>
 					<Routes>
 						<Route path="/" element={<MainPage />} />
 						<Route path="/players/:username" element={<PlayerTable />} />
 						<Route path="/team/:teamName/:year?/:league?" element={<TeamTable />} />
 						<Route path="/search" element={<SearchResultsPage />} />
+						<Route path="/compare-teams" element={<TeamComparisonSection />} />
 					</Routes>
 				</main>
 			</div>
