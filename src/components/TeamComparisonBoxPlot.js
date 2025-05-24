@@ -60,14 +60,33 @@ const TeamComparisonBoxPlot = ({ teams }) => {
     'rgba(200, 120, 30, 1)'
   ];
 
+  // Get all unique years and leagues from both teams
+  const allYears = Array.from(new Set(processedTeams.flatMap(team => team.players ? team.players.map(p => p.year) : []))).sort((a, b) => a - b);
+  const allLeagues = Array.from(new Set(processedTeams.flatMap(team => team.players ? team.players.map(p => p.league).filter(Boolean) : [])));
+
+  // State for selected year and league
+  const [selectedYear, setSelectedYear] = React.useState('all');
+  const [selectedLeague, setSelectedLeague] = React.useState('all');
+
+  // Filter teams' player data by selected year and league
+  const filteredTeams = processedTeams.map(team => ({
+    ...team,
+    data: team.players
+      ? team.players.filter(p =>
+          (selectedYear === 'all' || p.year === selectedYear) &&
+          (selectedLeague === 'all' || p.league === selectedLeague)
+        ).map(p => p.rankingValue).filter(val => val != null)
+      : []
+  }));
+
   // Find global min/max for scaling
-  const allValues = processedTeams.flatMap(team => team.data);
+  const allValues = filteredTeams.flatMap(team => team.data);
   const globalMin = Math.min(...allValues);
   const globalMax = Math.max(...allValues);
 
   const data = {
-    labels: processedTeams.map(team => team.name),
-    datasets: processedTeams.map((team, idx) => ({
+    labels: filteredTeams.map(team => team.name),
+    datasets: filteredTeams.map((team, idx) => ({
       label: team.name,
       backgroundColor: boxColors[idx % boxColors.length],
       borderColor: borderColors[idx % borderColors.length],
@@ -91,7 +110,7 @@ const TeamComparisonBoxPlot = ({ teams }) => {
         callbacks: {
           afterBody: (context) => {
             const dataIndex = context[0].dataIndex;
-            const teamData = processedTeams[dataIndex].data;
+            const teamData = filteredTeams[dataIndex].data;
             const sorted = [...teamData].sort((a, b) => a - b);
             const min = Math.min(...sorted);
             const max = Math.max(...sorted);
@@ -127,6 +146,76 @@ const TeamComparisonBoxPlot = ({ teams }) => {
 
   return (
     <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      {/* Year filter buttons */}
+      <div style={{ marginBottom: 16, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+        <span style={{ fontWeight: 'bold' }}>Year:</span>
+        <button
+          onClick={() => setSelectedYear('all')}
+          style={{
+            padding: '6px 12px',
+            borderRadius: 4,
+            border: '1px solid #18e9ef',
+            background: selectedYear === 'all' ? '#18e9ef' : '#fff',
+            color: selectedYear === 'all' ? '#074445' : '#000',
+            fontWeight: selectedYear === 'all' ? 'bold' : 'normal',
+            cursor: 'pointer'
+          }}
+        >
+          All
+        </button>
+        {allYears.map(year => (
+          <button
+            key={year}
+            onClick={() => setSelectedYear(year)}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 4,
+              border: '1px solid #18e9ef',
+              background: selectedYear === year ? '#18e9ef' : '#fff',
+              color: selectedYear === year ? '#074445' : '#000',
+              fontWeight: selectedYear === year ? 'bold' : 'normal',
+              cursor: 'pointer'
+            }}
+          >
+            {year}
+          </button>
+        ))}
+      </div>
+      {/* League filter buttons */}
+      <div style={{ marginBottom: 16, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+        <span style={{ fontWeight: 'bold' }}>League:</span>
+        <button
+          onClick={() => setSelectedLeague('all')}
+          style={{
+            padding: '6px 12px',
+            borderRadius: 4,
+            border: '1px solid #18e9ef',
+            background: selectedLeague === 'all' ? '#18e9ef' : '#fff',
+            color: selectedLeague === 'all' ? '#074445' : '#000',
+            fontWeight: selectedLeague === 'all' ? 'bold' : 'normal',
+            cursor: 'pointer'
+          }}
+        >
+          All
+        </button>
+        {allLeagues.map(league => (
+          <button
+            key={league}
+            onClick={() => setSelectedLeague(league)}
+            style={{
+              padding: '6px 12px',
+              borderRadius: 4,
+              border: '1px solid #18e9ef',
+              background: selectedLeague === league ? '#18e9ef' : '#fff',
+              color: selectedLeague === league ? '#074445' : '#000',
+              fontWeight: selectedLeague === league ? 'bold' : 'normal',
+              cursor: 'pointer'
+            }}
+          >
+            {league}
+          </button>
+        ))}
+      </div>
       <Chart type="boxplot" data={data} options={options} />
     </div>
   );
