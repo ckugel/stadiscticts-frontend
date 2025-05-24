@@ -69,8 +69,10 @@ const TeamComparisonSection = ({ options, theme }) => {
     }, []);
 
     const handleSelectTeam = (idx, team) => {
+        // Remove any quotes from the team name (if present)
+        const cleanName = team.teamName.replace(/^"|"$/g, '');
         const newInputs = [...teamInputs];
-        newInputs[idx] = team.teamName;
+        newInputs[idx] = cleanName;
         setTeamInputs(newInputs);
         setShowDropdown(drop => drop.map((d, i) => i === idx ? false : d));
         setSearchResults(results => results.map((r, i) => i === idx ? [] : r));
