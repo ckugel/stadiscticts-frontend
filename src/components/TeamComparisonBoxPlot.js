@@ -40,18 +40,41 @@ const TeamComparisonBoxPlot = ({ teams }) => {
     );
   }
 
+  // Assign distinct colors for each team
+  const boxColors = [
+    'rgba(24, 233, 239, 0.6)', // cyan
+    'rgba(255, 99, 132, 0.6)', // pink/red
+    'rgba(54, 162, 235, 0.6)', // blue
+    'rgba(255, 206, 86, 0.6)', // yellow
+    'rgba(75, 192, 192, 0.6)', // teal
+    'rgba(153, 102, 255, 0.6)', // purple
+    'rgba(255, 159, 64, 0.6)'  // orange
+  ];
+  const borderColors = [
+    'rgba(7, 68, 69, 1)',
+    'rgba(200, 30, 80, 1)',
+    'rgba(30, 100, 200, 1)',
+    'rgba(200, 180, 40, 1)',
+    'rgba(30, 180, 180, 1)',
+    'rgba(100, 60, 200, 1)',
+    'rgba(200, 120, 30, 1)'
+  ];
+
+  // Find global min/max for scaling
+  const allValues = processedTeams.flatMap(team => team.data);
+  const globalMin = Math.min(...allValues);
+  const globalMax = Math.max(...allValues);
+
   const data = {
     labels: processedTeams.map(team => team.name),
-    datasets: [
-      {
-        label: 'Player Ranking Values',
-        backgroundColor: 'rgba(24, 233, 239, 0.6)',
-        borderColor: 'rgba(7, 68, 69, 1)',
-        borderWidth: 2,
-        outlierColor: '#999999',
-        data: processedTeams.map(team => team.data)
-      }
-    ]
+    datasets: processedTeams.map((team, idx) => ({
+      label: team.name,
+      backgroundColor: boxColors[idx % boxColors.length],
+      borderColor: borderColors[idx % borderColors.length],
+      borderWidth: 2,
+      outlierColor: '#999999',
+      data: [team.data]
+    }))
   };
 
   const options = {
@@ -85,7 +108,9 @@ const TeamComparisonBoxPlot = ({ teams }) => {
     },
     scales: {
       y: {
-        beginAtZero: true,
+        beginAtZero: false,
+        min: globalMin === globalMax ? globalMin - 1 : globalMin - Math.abs(globalMin * 0.1),
+        max: globalMin === globalMax ? globalMax + 1 : globalMax + Math.abs(globalMax * 0.1),
         title: {
           display: true,
           text: 'Ranking Value'
