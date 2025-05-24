@@ -29,7 +29,16 @@ const TeamTable = () => {
         }
     }, [teamName, league, year]);
 
-    const sortedPlayers = [...teamData.players].sort((a, b) => {
+    // Get unique years from players
+    const availableYears = Array.from(new Set(teamData.players.map(p => p.year))).sort((a, b) => a - b);
+    const [selectedYear, setSelectedYear] = useState('all');
+
+    // Filter players by selected year
+    const filteredPlayers = selectedYear === 'all'
+        ? teamData.players
+        : teamData.players.filter(p => p.year === selectedYear);
+
+    const sortedPlayers = [...filteredPlayers].sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
             return sortConfig.direction === 'ascending' ? -1 : 1;
         }
@@ -87,73 +96,88 @@ const TeamTable = () => {
     return (
         <div>
             <h2>Team: {teamName}</h2>
-            <div style={{ marginBottom: 16, position: 'relative' }}>
-                <input
-                    ref={inputRef}
-                    type="text"
-                    placeholder="Compare to another team..."
-                    value={compareInput}
-                    onChange={e => handleCompareInputChange(e.target.value)}
-                    onFocus={() => setShowDropdown(true)}
-                    onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
-                    style={{ 
-                        padding: 8, 
-                        fontSize: 16, 
-                        marginRight: 8,
-                        color: '#000',
-                        background: '#fff',
-                        border: '1px solid #18e9ef',
-                        borderRadius: 4,
-                        minWidth: 200
-                    }}
-                    autoComplete="off"
-                />
-                {showDropdown && searchResults.length > 0 && (
-                    <div style={{ 
-                        position: 'absolute', 
-                        top: 40, 
-                        left: 0, 
-                        zIndex: 10, 
-                        background: '#fff', 
-                        border: '1px solid #18e9ef', 
-                        borderRadius: 4, 
-                        width: '300px', 
-                        maxHeight: 200, 
-                        overflowY: 'auto' 
-                    }}>
-                        {searchResults.map((team, i) => (
-                            <div 
-                                key={i} 
-                                onMouseDown={() => handleSelectTeam(team)} 
-                                style={{ 
-                                    cursor: 'pointer', 
-                                    padding: '8px 12px', 
-                                    borderBottom: i < searchResults.length - 1 ? '1px solid #eee' : 'none',
-                                    color: '#000'
-                                }}
-                                onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
-                                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+            <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 16 }}>
+                {/* Year filter dropdown */}
+                <label htmlFor="year-select" style={{ fontWeight: 'bold' }}>Year:</label>
+                <select
+                    id="year-select"
+                    value={selectedYear}
+                    onChange={e => setSelectedYear(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+                    style={{ padding: 6, fontSize: 16, borderRadius: 4, border: '1px solid #18e9ef', marginRight: 16 }}
+                >
+                    <option value="all">All</option>
+                    {availableYears.map(year => (
+                        <option key={year} value={year}>{year}</option>
+                    ))}
+                </select>
+                <div style={{ marginBottom: 16, position: 'relative' }}>
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        placeholder="Compare to another team..."
+                        value={compareInput}
+                        onChange={e => handleCompareInputChange(e.target.value)}
+                        onFocus={() => setShowDropdown(true)}
+                        onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
+                        style={{ 
+                            padding: 8, 
+                            fontSize: 16, 
+                            marginRight: 8,
+                            color: '#000',
+                            background: '#fff',
+                            border: '1px solid #18e9ef',
+                            borderRadius: 4,
+                            minWidth: 200
+                        }}
+                        autoComplete="off"
+                    />
+                    {showDropdown && searchResults.length > 0 && (
+                        <div style={{ 
+                            position: 'absolute', 
+                            top: 40, 
+                            left: 0, 
+                            zIndex: 10, 
+                            background: '#fff', 
+                            border: '1px solid #18e9ef', 
+                            borderRadius: 4, 
+                            width: '300px', 
+                            maxHeight: 200, 
+                            overflowY: 'auto' 
+                        }}>
+                            {searchResults.map((team, i) => (
+                                <div 
+                                    key={i} 
+                                    onMouseDown={() => handleSelectTeam(team)} 
+                                    style={{ 
+                                        cursor: 'pointer', 
+                                        padding: '8px 12px', 
+                                        borderBottom: i < searchResults.length - 1 ? '1px solid #eee' : 'none',
+                                        color: '#000'
+                                    }}
+                                    onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
+                                    onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                             >
                                 <div style={{ fontWeight: 'bold' }}>{team.teamName}</div>
                                 {team.league && <div style={{ fontSize: '12px', color: '#888' }}>League: {team.league}</div>}
                             </div>
                         ))}
                     </div>
-                )}
-                <button
-                    onClick={handleCompareClick}
-                    style={{ 
-                        padding: 8, 
-                        fontSize: 16,
-                        background: '#18e9ef',
-                        color: '#074445',
-                        border: 'none',
-                        borderRadius: 4,
-                        cursor: 'pointer'
-                    }}
-                >
-                    Compare
-                </button>
+                    )}
+                    <button
+                        onClick={handleCompareClick}
+                        style={{ 
+                            padding: 8, 
+                            fontSize: 16,
+                            background: '#18e9ef',
+                            color: '#074445',
+                            border: 'none',
+                            borderRadius: 4,
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Compare
+                    </button>
+                </div>
             </div>
             <table className="table">
                 <thead>
