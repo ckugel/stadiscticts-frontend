@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import TeamComparisonBoxPlot from './TeamComparisonBoxPlot';
-import { API_BASE_URL, ENDPOINTS } from '../constants/api';
+import { API_BASE_URL, ENDPOINTS } from '../../constants/api';
 
 const TeamComparisonSection = ({ options, theme }) => {
     const [teamInputs, setTeamInputs] = useState(['', '']);

@@ -9,7 +9,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, #004d40, #00251a);
+    background: linear-gradient(to bottom, #000000, #074445);
 }
 
 .main-page-header {

@@ -1,5 +1,5 @@
-// src/components/TeamComparisonBoxPlot.js
 import React from 'react';
+import AgGridTable from '../AgGrid/AgGridTable.js';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -217,7 +217,7 @@ const TeamComparisonBoxPlot = ({ teams }) => {
         ))}
       </div>
       <Chart type="boxplot" data={data} options={options} />
-    </div>
+      </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import Card from './Card';
+import Card from './Cards/Card';
 import { API_BASE_URL, ENDPOINTS } from '../constants/api';
 
 const SearchResultsPage = () => {
