@@ -13,7 +13,6 @@ height: 100vh;
 
 .App-header {
     padding: 20px;
-    color: #18e9ef;
     text-align: center;
     background-color: #074445;
 }
@@ -41,15 +40,17 @@ height: 100vh;
 .App h1 {
     font-size: 2.5rem;
     margin: 0;
+    backgroud: linear-gradient(to right, #000000, #074445);
 }
 
 .table {
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
+    margin-left: 10%;
 }
 
 .table th, .table td {
-    border: 1px solid black;
+    border: 1px solid;
     padding: 8px;
     text-align: left;
 }
@@ -59,13 +60,15 @@ main {
 }
 
 body.light {
-    color: #A8A8A8;
+    color: #000000;
     background-color: #ffffff;
+    border-color: #FFFFFF;
 }
 
 body.dark {
     color: #ffffff;
-    background-color: #121212;
+    background-color: #000000;
+    border-color: #000000;
 }
 
 .theme-toggle-button {

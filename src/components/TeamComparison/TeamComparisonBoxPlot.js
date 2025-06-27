@@ -1,5 +1,5 @@
-// src/components/TeamComparisonBoxPlot.js
 import React from 'react';
+import AgGridTable from '../AgGrid/AgGridTable.js';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -152,38 +152,37 @@ const TeamComparisonBoxPlot = ({ teams }) => {
       {/* Additional statistics table */}
       <div style={{ marginTop: 20, padding: 16, background: '#f8f9fa', borderRadius: 8 }}>
         <h4 style={{ marginBottom: 16, textAlign: 'center' }}>Detailed Statistics</h4>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ backgroundColor: '#18e9ef', color: '#074445' }}>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Team</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Players</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Min</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Q1</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Median</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Mean</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Q3</th>
-                <th style={{ padding: 8, border: '1px solid #ddd' }}>Max</th>
-              </tr>
-            </thead>
-            <tbody>
-              {teamStats.map((team, index) => (
-                <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#f8f9fa' }}>
-                  <td style={{ padding: 8, border: '1px solid #ddd', fontWeight: 'bold' }}>{team.name}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.values.length}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.min.toFixed(1)}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.q1.toFixed(1)}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.median.toFixed(1)}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.mean.toFixed(1)}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.q3.toFixed(1)}</td>
-                  <td style={{ padding: 8, border: '1px solid #ddd' }}>{team.stats.max.toFixed(1)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <AgGridTable
+          rowData={teamStats.map(team => ({
+            team: team.name,
+            players: team.stats.values.length,
+            min: team.stats.min,
+            q1: team.stats.q1,
+            median: team.stats.median,
+            mean: team.stats.mean,
+            q3: team.stats.q3,
+            max: team.stats.max,
+            range: team.stats.max - team.stats.min,
+            iqr: team.stats.q3 - team.stats.q1,
+            stddev: Math.sqrt(team.stats.values.reduce((acc, val) => acc + Math.pow(val - team.stats.mean, 2), 0) / team.stats.values.length)
+          }))}
+          columnDefs={[
+            { headerName: 'Team', field: 'team', flex: 1 },
+            { headerName: 'Players', field: 'players', flex: 1 },
+            { headerName: 'Min', field: 'min', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Q1', field: 'q1', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Median', field: 'median', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Mean', field: 'mean', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Q3', field: 'q3', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Max', field: 'max', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Range', field: 'range', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'IQR', field: 'iqr', valueFormatter: p => p.value.toFixed(1), flex: 1 },
+            { headerName: 'Std Dev', field: 'stddev', valueFormatter: p => p.value.toFixed(2), flex: 1 }
+          ]}
+          style={{ height: 350, width: '100%' }}
+        />
       </div>
-    </div>
+      </div>
   );
 };
 

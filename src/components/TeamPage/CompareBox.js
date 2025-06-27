@@ -1,60 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { API_BASE_URL, ENDPOINTS } from '../constants/api';
+import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const TeamTable = () => {
-    const [teamData, setTeamData] = useState({ players: [] });
-    const [sortConfig, setSortConfig] = useState({ key: 'year', direction: 'ascending'});
-    const [compareInput, setCompareInput] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const { teamName, year, league } = useParams();
+const CompareBox = () => {
     const navigate = useNavigate();
     const inputRef = useRef();
+    const [compareInput, setCompareInput] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
+    const { teamName } = useParams();
 
-    useEffect(() => {
-        if (teamName) {
-            let endpoint = `${API_BASE_URL}${ENDPOINTS.TEAM}/${teamName}`;
-            if (year && year !== 'all') {
-                endpoint += `/${year}`;
-            }
-            if (league) {
-                endpoint += `?league=${league}`;
-            }
-            console.log(endpoint);
-            fetch(endpoint)
-                .then(response => response.json())
-                .then(data => setTeamData(data))
-                .catch(error => console.error('Error fetching team data:', error));
-        }
-    }, [teamName, league, year]);
-
-    const sortedPlayers = [...teamData.players].sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-            return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-            return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-    });
-
-    const getSortArrow = (key) => {
-        if (sortConfig.key === key) {
-            return sortConfig.direction === 'ascending' ? '↑' : '↓';
-        }
-        return '';
-    };
-
-    const requestSort = (key) => {
-        let direction = 'ascending';
-        if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-            direction = 'descending';
-        }
-        setSortConfig({ key, direction });
-    };
-
-    const handleCompareInputChange = async (value) => {
+const handleCompareInputChange = async (value) => {
         setCompareInput(value);
         setShowDropdown(true);
         if (value.length > 1) {
@@ -86,7 +41,6 @@ const TeamTable = () => {
 
     return (
         <div>
-            <h2>Team: {teamName}</h2>
             <div style={{ marginBottom: 16, position: 'relative' }}>
                 <input
                     ref={inputRef}
@@ -154,33 +108,10 @@ const TeamTable = () => {
                 >
                     Compare
                 </button>
-            </div>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th>Player Name</th>
-                    <th onClick={() => requestSort('year')}>
-                        Year {getSortArrow('year')}
-                    </th>
-                    <th onClick={() => requestSort('rankingValue')}>
-                        Ranking Value {getSortArrow('rankingValue')}
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {sortedPlayers.map((player, index) => (
-                    <tr key={index}>
-                        <td>
-                            <Link to={`/players/${player.name}`}>{player.name}</Link>
-                        </td>
-                        <td>{player.year}</td>
-                        <td>{player.rankingValue}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-        </div>
+     
+	</div>
+	</div>
     );
-};
 
-export default TeamTable;
+};
+	export default CompareBox;

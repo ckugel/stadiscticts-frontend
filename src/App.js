@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-import PlayerTable from './components/PlayerTable';
-import TeamTable from "./components/TeamTable";
+import PlayerTable from './components/PlayerPage/PlayerTable';
+import TeamTable from "./components/TeamPage/TeamTable";
 import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResultsPage from "./components/SearchResultsPage";
-import MainPage from "./components/MainPage";
+import MainPage from "./components/MainPage/MainPage";
 import ThemeToggleButton from './components/ThemeToggleButton';
-import TeamComparisonBoxPlot from "./components/TeamComparisonBoxPlot";
-import TeamComparisonSection from "./components/TeamComparisonSection";
+import TeamComparisonBoxPlot from "./components/TeamComparison/TeamComparisonBoxPlot";
+import TeamComparisonSection from "./components/TeamComparison/TeamComparisonSection";
 import { API_BASE_URL, ENDPOINTS } from './constants/api';
 
 function App() {
