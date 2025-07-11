@@ -1,5 +1,16 @@
-.table {
-    height: 60vh;
+.TeamTable {
+    display: flex;
+    flex-direction: column;
     width: 80%;
     margin-left: 10%;
+    justify-content: stretch;
+    height: 100%;
+    margin-bottom: 5%;
+}
+
+.table {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: stretch;
 }

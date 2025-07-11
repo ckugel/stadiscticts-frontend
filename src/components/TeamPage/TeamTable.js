@@ -72,7 +72,7 @@ const TeamTable = () => {
   }, [teamName, league, year]);
 
   return (
-    <div>
+    <div className="TeamTable">
       <div className="aboveTable">
         <h2>Team: {teamName}</h2>
         <CompareBox
