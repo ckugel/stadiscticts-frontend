@@ -36,7 +36,9 @@ const PlayerTable = () => {
               headerName: "Team",
               field: "team",
               cellRenderer: (params) => (
-                <Link to={`/teams/${params.data.team}/${params.data.year}`}>
+                <Link
+                  to={`/team/${params.data.team}/${params.data.year}/${params.data.league}`}
+                >
                   {params.data.team}
                 </Link>
               ),

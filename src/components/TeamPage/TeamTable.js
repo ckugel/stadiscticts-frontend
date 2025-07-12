@@ -3,10 +3,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL, ENDPOINTS } from "../../constants/api";
 import AgGridTable from "../AgGrid/AgGridTable.js";
 import CompareBox from "./CompareBox.js";
+import YearDropDown from "./YearDropDown.js";
 import "../AgGrid/AgGrid.css";
 
 const TeamTable = () => {
   const [teamData, setTeamData] = useState({ players: [] });
+  const [years, setYearsData] = useState({ years: [] });
   const [sortConfig, setSortConfig] = useState({
     key: "year",
     direction: "ascending",
@@ -18,10 +20,13 @@ const TeamTable = () => {
   const navigate = useNavigate();
   const inputRef = useRef();
 
-  const availableYears = Array.from(
-    new Set(teamData.players.map((p) => p.year)),
-  ).sort((a, b) => a - b);
   const [selectedYear, setSelectedYear] = useState("all");
+
+  const selectorRef = useRef(null);
+  const handleYearChange = (newYear) => {
+    const newPath = `/team/${teamName}/${newYear}/${league}`;
+    navigate(newPath);
+  };
 
   useEffect(() => {
     if (teamName) {
@@ -33,11 +38,19 @@ const TeamTable = () => {
         endpoint += `?league=${league}`;
       }
 
+      let yearsEnd = `${API_BASE_URL}${ENDPOINTS.TEAM}/years/${teamName}/${league}`;
+
       fetch(endpoint)
         .then((response) => response.json())
         .then((data) => setTeamData(data))
         .catch((error) => console.error("Error fetching team data:", error));
+
+      fetch(yearsEnd)
+        .then((response) => response.json())
+        .then((years) => setYearsData(years))
+        .catch((error) => console.error("Error fetching team data:", error));
     }
+    console.log(years);
   }, [teamName, league, year]);
 
   return (
@@ -51,6 +64,11 @@ const TeamTable = () => {
         ></CompareBox>
       </div>
       <div className="table">
+        <YearDropDown
+          ref={selectorRef}
+          years={Array.isArray(years) ? years : []}
+          onYearChange={handleYearChange}
+        ></YearDropDown>
         <AgGridTable
           rowData={Array.isArray(teamData.players) ? teamData.players : []}
           columnDefs={[
