@@ -1,4 +1,4 @@
-.TeamTable {
+.TablePage {
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -13,4 +13,8 @@
     flex-direction: column;
     display: flex;
     justify-content: stretch;
+}
+
+.NoData {
+    color: black;
 }

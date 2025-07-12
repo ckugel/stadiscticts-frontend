@@ -23,37 +23,6 @@ const TeamTable = () => {
   ).sort((a, b) => a - b);
   const [selectedYear, setSelectedYear] = useState("all");
 
-  // Filter players by selected year
-  const filteredPlayers =
-    selectedYear === "all"
-      ? teamData.players
-      : teamData.players.filter((p) => p.year === selectedYear);
-
-  const sortedPlayers = [...filteredPlayers].sort((a, b) => {
-    if (a[sortConfig.key] < b[sortConfig.key]) {
-      return sortConfig.direction === "ascending" ? -1 : 1;
-    }
-    if (a[sortConfig.key] > b[sortConfig.key]) {
-      return sortConfig.direction === "ascending" ? 1 : -1;
-    }
-    return 0;
-  });
-
-  const getSortArrow = (key) => {
-    if (sortConfig.key === key) {
-      return sortConfig.direction === "ascending" ? "↑" : "↓";
-    }
-    return "";
-  };
-
-  const requestSort = (key) => {
-    let direction = "ascending";
-    if (sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
-    }
-    setSortConfig({ key, direction });
-  };
-
   useEffect(() => {
     if (teamName) {
       let endpoint = `${API_BASE_URL}${ENDPOINTS.TEAM}/${teamName}`;
@@ -63,7 +32,7 @@ const TeamTable = () => {
       if (league) {
         endpoint += `?league=${league}`;
       }
-      console.log(endpoint);
+
       fetch(endpoint)
         .then((response) => response.json())
         .then((data) => setTeamData(data))
@@ -72,7 +41,7 @@ const TeamTable = () => {
   }, [teamName, league, year]);
 
   return (
-    <div className="TeamTable">
+    <div className="TablePage">
       <div className="aboveTable">
         <h2>Team: {teamName}</h2>
         <CompareBox

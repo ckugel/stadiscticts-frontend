@@ -1,5 +1,6 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
+import NoDataOverlay from "./NoDataOverlay.js";
 // import "ag-grid-community/styles/ag-grid.css";
 import {
   ModuleRegistry,
@@ -22,6 +23,7 @@ const AgGridTable = ({
       rowData={rowData}
       columnDefs={columnDefs}
       theme={myTheme}
+      noRowsOverlayComponent={NoDataOverlay}
       defaultColDef={{
         sortable: true,
         filter: true,
