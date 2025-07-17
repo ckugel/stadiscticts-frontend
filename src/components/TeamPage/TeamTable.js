@@ -113,7 +113,7 @@ const TeamTable = ({ theme = 'light' }) => {
             value={compareTeam}
             onChange={handleCompareTeamChange}
             theme={theme}
-            showLeagueYearSelection={false}
+            showLeagueYearSelection={true}
             style={{ minWidth: 250 }}
           />
           <button
