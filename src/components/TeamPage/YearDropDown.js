@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
+import './YearDropDown.css';
 
-const YearDropDown = forwardRef(({ years, onYearChange }, ref) => {
+const YearDropDown = forwardRef(({ years, onYearChange, theme = 'light' }, ref) => {
   const [selectedYear, setSelectedYear] = useState(years[0]);
 
   useImperativeHandle(ref, () => ({
@@ -16,16 +17,18 @@ const YearDropDown = forwardRef(({ years, onYearChange }, ref) => {
   };
 
   return (
-    <div className="yearDrop">
-      <label htmlFor="year-select">Select Year: </label>
+    <div className="year-dropdown">
+      <label htmlFor="year-select" className={`year-dropdown-label ${theme}`}>
+        Select Year:
+      </label>
       <select
         id="year-select"
         value={selectedYear}
-        style={{ color: "black", padding: "3px" }}
+        className={`year-dropdown-select ${theme}`}
         onChange={handleChange}
       >
         {years.map((year) => (
-          <option key={year} value={year}>
+          <option key={year} value={year} className={`year-dropdown-option ${theme}`}>
             {year}
           </option>
         ))}

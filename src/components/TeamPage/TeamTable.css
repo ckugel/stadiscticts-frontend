@@ -1,0 +1,79 @@
+.table-page {
+    text-align: center;
+}
+
+/* Override the default aboveTable to support our 3-section layout */
+.aboveTable {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 1% !important;
+    padding: 0 20px;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.team-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.team-title.light {
+    color: #000;
+}
+
+.team-title.dark {
+    color: #fff;
+}
+
+.center-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+}
+
+.right-section {
+    /* Empty space to balance the layout */
+    min-width: 200px;
+}
+
+.compare-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.compare-button.enabled {
+    background: var(--accent-color);
+    color: var(--accent-text-color);
+    cursor: pointer;
+}
+
+.compare-button.enabled:hover {
+    background: var(--accent-color-hover);
+}
+
+.compare-button.disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Ensure the table container takes full width */
+.table {
+    width: 100%;
+    max-width: none;
+}

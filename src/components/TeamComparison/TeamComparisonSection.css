@@ -1,0 +1,52 @@
+.team-comparison-section {
+    padding: 5%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.team-comparison-title {
+    margin-bottom: 24px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.team-selection-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .team-selection-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+}
+
+.loading-message {
+    margin: 16px 0;
+}
+
+.loading-message.light {
+    color: #666;
+}
+
+.loading-message.dark {
+    color: #ccc;
+}
+
+.error-message {
+    color: red;
+    margin: 16px 0;
+}
+
+.box-plot-container {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}

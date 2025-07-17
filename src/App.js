@@ -7,7 +7,6 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResultsPage from "./components/SearchResultsPage";
 import MainPage from "./components/MainPage/MainPage";
 import ThemeToggleButton from './components/ThemeToggleButton';
-import TeamComparisonBoxPlot from "./components/TeamComparison/TeamComparisonBoxPlot";
 import TeamComparisonSection from "./components/TeamComparison/TeamComparisonSection";
 import { API_BASE_URL, ENDPOINTS } from './constants/api';
 
@@ -48,16 +47,26 @@ function App() {
 						<ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
 					</div>
 				</header>
-				<nav style={{ margin: '16px 0' }}>
-					<Link to="/compare-teams" style={{ color: '#18e9ef', fontWeight: 'bold', marginLeft: 16 }}>
+				<nav className="navigator">
+					<Link to="/compare-teams" className="nav-link">
 						Compare Teams
 					</Link>
+					<Link to="/about" className="nav-link">
+						About Us
+					</Link>
+					<Link to="/contact" className="nav-link">
+						Contact
+					</Link>
+					<Link to="/mmr-explained" className="nav-link">
+						What is MMR?
+					</Link>
+
 				</nav>
 				<main>
 					<Routes>
 						<Route path="/" element={<MainPage />} />
 						<Route path="/players/:username" element={<PlayerTable />} />
-						<Route path="/team/:teamName/:year?/:league?" element={<TeamTable />} />
+						<Route path="/team/:teamName/:year?/:league?" element={<TeamTable theme={theme} />} />
 						<Route path="/search" element={<SearchResultsPage />} />
 						<Route path="/compare-teams" element={<TeamComparisonSection options={options} theme={theme} />} />
 					</Routes>

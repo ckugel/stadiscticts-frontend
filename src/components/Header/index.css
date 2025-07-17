@@ -1,0 +1,15 @@
+.header-container {
+     background-color: #151515;
+    padding: 16px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.header-search {
+   display: flex;
+    align-items: center;
+    height: 20px;
+    justify-content: center;
+}

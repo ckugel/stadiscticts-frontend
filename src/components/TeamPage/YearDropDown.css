@@ -1,0 +1,58 @@
+.year-dropdown {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.year-dropdown-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.year-dropdown-label.light {
+    color: #000;
+}
+
+.year-dropdown-label.dark {
+    color: #fff;
+}
+
+.year-dropdown-select {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: 1px solid #18e9ef;
+    border-radius: 4px;
+    cursor: pointer;
+    min-width: 80px;
+}
+
+.year-dropdown-select.light {
+    color: #000;
+    background: #fff;
+}
+
+.year-dropdown-select.dark {
+    color: #fff;
+    background: #222;
+}
+
+.year-dropdown-select:focus {
+    outline: none;
+    border-color: #18e9ef;
+    box-shadow: 0 0 0 2px rgba(24, 233, 239, 0.2);
+}
+
+.year-dropdown-option {
+    padding: 4px 8px;
+}
+
+.year-dropdown-option.light {
+    background: #fff;
+    color: #000;
+}
+
+.year-dropdown-option.dark {
+    background: #222;
+    color: #fff;
+}

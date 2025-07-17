@@ -6,10 +6,10 @@
 .main-page {
     padding: 0;
     margin: 0;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, #000000, #074445);
+    background: linear-gradient(to bottom, #000000, var(--accent-color));
 }
 
 .main-page-header {

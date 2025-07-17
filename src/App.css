@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* Primary accent color (light blue) */
+    --accent-color: #18e9ef;
+    --accent-color-light: rgba(24, 233, 239, 0.6);
+    --accent-color-dark: rgba(24, 233, 239, 0.8);
+    --accent-color-hover: #16d1d9;
+    --accent-text-color: #074445;
+
+    /* Secondary accent color (pink) */
+    --secondary-accent-color: #ff6384;
+    --secondary-accent-color-light: rgba(255, 99, 132, 0.6);
+    --secondary-accent-color-dark: rgba(255, 99, 132, 0.8);
+    --secondary-accent-color-hover: #ff4d6d;
+    --secondary-accent-text-color: #ffffff;
+
+    /* Other colors */
+    --secondary-color: #074445;
+
+    --tertiary-color: #000000;
+
+    --search-size: 30px;
+}
+
 .App {
     text-align: center;
     height: 100vh;
@@ -23,7 +46,7 @@
 .App-header {
     padding: 20px;
     text-align: center;
-    background-color: #074445;
+    background-color: var(--tertiary-color);
 }
 
 .search-bar-container {
@@ -31,19 +54,33 @@
     width: 20vw;
 }
 
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    border-radius: 5px;
+}
+
 .search-bar input {
     color: black;
     border-radius: 5px;
+    height: var(--search-size);
     margin: auto;
     width: 20vw;
 }
 
 .search-button {
-    background-color: #18e9ef;
-    color: #074445;
+    background-color: var(--accent-color);
+    color: var(--accent-text-color);
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 3px 10px;
     cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: var(--accent-color-hover);
 }
 
 .yearDrop {
@@ -76,4 +113,17 @@ body.dark {
     margin-left: 10px;
     padding: 5px 10px;
     cursor: pointer;
+}
+
+.navigator {
+    margin: 16px 0;
+    display: flex;
+    justify-content: right;
+    margin-right: 30px;
+}
+
+.nav-link {
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-left: 16px;
 }

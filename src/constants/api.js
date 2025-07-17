@@ -1,5 +1,8 @@
 // API Configuration Constants
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+// When using proxy in package.json, we don't need the full URL for development
+export const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080')
+  : ''; // Empty string uses the proxy from package.json
 
 // API Endpoints
 export const ENDPOINTS = {
