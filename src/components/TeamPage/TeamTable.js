@@ -10,7 +10,7 @@ import { fetchTeamDetails, buildComparisonUrl, fetchTeamYears } from "../TeamCom
 
 const TeamTable = ({ theme = 'light' }) => {
   const [teamData, setTeamData] = useState({ playerEntrys: [] });
-  const [years, setYearsData] = useState([]);
+  const [years, setYearsData] = useState(['all']);
   const [compareTeam, setCompareTeam] = useState("");
   const { teamName, year, league } = useParams();
   const navigate = useNavigate();
@@ -83,7 +83,7 @@ const TeamTable = ({ theme = 'light' }) => {
       if (league) {
         fetchTeamYears(teamName, league)
           .then((years) => {
-            setYearsData(Array.isArray(years) ? years : []);
+            setYearsData(Array.isArray(years) ? years : ['all']);
           })
           .catch((error) => {
             setYearsData([]); // Set empty array on error
@@ -102,7 +102,7 @@ const TeamTable = ({ theme = 'light' }) => {
           <h2 className={`team-title ${theme}`}>Team: {teamName}</h2>
           <YearDropDown
             ref={selectorRef}
-            years={Array.isArray(years) ? years : []}
+            years={Array.isArray(years) ? years : ['all']}
             onYearChange={handleYearChange}
             theme={theme}
           />
