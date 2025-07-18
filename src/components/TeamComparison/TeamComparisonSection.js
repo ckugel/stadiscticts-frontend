@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import TeamBoxPlot from './TeamBoxPlot';
+import ComparisonViolinPlot from './ComparisonViolinPlot';
 import TeamSelectionBox from './TeamSelectionBox';
 import { fetchTeamDetails, fetchTeamYears } from './teamUtils';
 import './TeamComparisonSection.css';
@@ -10,6 +11,7 @@ const TeamComparisonSection = ({ options, theme }) => {
     const [teamDetails, setTeamDetails] = useState([null, null]);
     const [selectedLeague, setSelectedLeague] = useState([null, null]);
     const [selectedYear, setSelectedYear] = useState([null, null]);
+    const [chartType, setChartType] = useState('box'); // 'box' or 'violin'
     const location = useLocation();
 
     const handleTeamInputChange = (idx, value) => {
@@ -89,6 +91,10 @@ const TeamComparisonSection = ({ options, theme }) => {
                selectedYear.every(year => year);
     };
 
+    const handleChartTypeChange = (type) => {
+        setChartType(type);
+    };
+
     return (
         <section className="team-comparison-section">
             <h2 className="team-comparison-title">Compare Teams</h2>
@@ -113,20 +119,50 @@ const TeamComparisonSection = ({ options, theme }) => {
                 ))}
             </div>
 
+            <div className="chart-type-selector">
+                <button
+                    className={`chart-type-button ${chartType === 'box' ? 'active' : ''}`}
+                    onClick={() => handleChartTypeChange('box')}
+                >
+                    Box Plot
+                </button>
+                <button
+                    className={`chart-type-button ${chartType === 'violin' ? 'active' : ''}`}
+                    onClick={() => handleChartTypeChange('violin')}
+                >
+                    Violin Plot
+                </button>
+            </div>
+
             {isReadyForComparison() && (
-                <div className="box-plot-container">
-                    <TeamBoxPlot
-                        teamOne={{
-                            name: teamInputs[0],
-                            league: selectedLeague[0],
-                            year: selectedYear[0]
-                        }}
-                        teamTwo={{
-                            name: teamInputs[1],
-                            league: selectedLeague[1],
-                            year: selectedYear[1]
-                        }}
-                    />
+                <div className="chart-container">
+                    {chartType === 'box' ? (
+                        <TeamBoxPlot
+                            teamOne={{
+                                name: teamInputs[0],
+                                league: selectedLeague[0],
+                                year: selectedYear[0]
+                            }}
+                            teamTwo={{
+                                name: teamInputs[1],
+                                league: selectedLeague[1],
+                                year: selectedYear[1]
+                            }}
+                        />
+                    ) : (
+                        <ComparisonViolinPlot
+                            teamOne={{
+                                name: teamInputs[0],
+                                league: selectedLeague[0],
+                                year: selectedYear[0]
+                            }}
+                            teamTwo={{
+                                name: teamInputs[1],
+                                league: selectedLeague[1],
+                                year: selectedYear[1]
+                            }}
+                        />
+                    )}
                 </div>
             )}
         </section>

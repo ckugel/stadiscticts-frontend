@@ -45,6 +45,42 @@
     margin: 16px 0;
 }
 
+.chart-type-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.chart-type-button {
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.chart-type-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.chart-type-button.active {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.chart-container {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
 .box-plot-container {
     margin-top: 24px;
     display: flex;
