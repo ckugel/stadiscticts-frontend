@@ -34,7 +34,6 @@ const TeamTable = ({ theme = 'light' }) => {
         const url = buildComparisonUrl(teamName, compareTeam.trim(), league, preferredLeague);
         navigate(url);
       } catch (error) {
-        console.log('Could not fetch league for team2:', error);
         // Fallback to basic comparison without team2 league
         const url = buildComparisonUrl(teamName, compareTeam.trim(), league);
         navigate(url);

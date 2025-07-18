@@ -34,10 +34,8 @@ const TeamComparisonSection = ({ options, theme }) => {
         // Fetch years for the selected league
         const teamName = teamInputs[idx];
         if (teamName && league) {
-            console.log('Fetching years for team:', teamName, 'league:', league); // Debug log
             fetchTeamYears(teamName, league)
                 .then((years) => {
-                    console.log('Years fetched for league selection:', years); // Debug log
                     // Update the team details with the new years
                     setTeamDetails(prev => prev.map((detail, i) => {
                         if (i === idx && detail) {

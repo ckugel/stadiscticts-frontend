@@ -47,9 +47,7 @@ const TeamSelectionBox = ({
   const loadTeamDetails = async (teamName) => {
     try {
       setLoading(true);
-      console.log("Loading team details for:", teamName); // Debug log
       const details = await fetchTeamDetails(teamName);
-      console.log("Team details loaded:", details); // Debug log
       onTeamDetailsChange(details);
     } catch (e) {
       console.error(`Error fetching team details: ${e.message}`);

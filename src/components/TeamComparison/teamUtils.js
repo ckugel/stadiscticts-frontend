@@ -12,8 +12,6 @@ import { API_BASE_URL, ENDPOINTS } from '../../constants/api';
  */
 export const fetchTeamDetails = async (teamName, league = null) => {
     try {
-        console.log('Fetching team details for:', teamName, 'league:', league); // Debug log
-
         // Backend expects quoted team names - let the backend handle the quoting
         let url = `${API_BASE_URL}${ENDPOINTS.TEAM}/${encodeURIComponent(teamName)}`;
         if (league) {

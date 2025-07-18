@@ -5,7 +5,6 @@ import './MainPage.css';
 
 const MainPage = () => {
     const onSearch = (query) => {
-        console.log(`Search query: ${query}`);
     };
 
     return (
