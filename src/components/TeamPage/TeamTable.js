@@ -6,11 +6,15 @@ import YearDropDown from "./YearDropDown.js";
 import "../AgGrid/AgGrid.css";
 import "./TeamTable.css";
 import TeamSelectionBox from "../TeamComparison/TeamSelectionBox";
-import { fetchTeamDetails, buildComparisonUrl, fetchTeamYears } from "../TeamComparison/teamUtils";
+import {
+  fetchTeamDetails,
+  buildComparisonUrl,
+  fetchTeamYears,
+} from "../TeamComparison/teamUtils";
 
-const TeamTable = ({ theme = 'light' }) => {
+const TeamTable = ({ theme = "light" }) => {
   const [teamData, setTeamData] = useState({ playerEntrys: [] });
-  const [years, setYearsData] = useState(['all']);
+  const [years, setYearsData] = useState(["all"]);
   const [compareTeam, setCompareTeam] = useState("");
   const { teamName, year, league } = useParams();
   const navigate = useNavigate();
@@ -29,9 +33,16 @@ const TeamTable = ({ theme = 'light' }) => {
         const team2Leagues = team2Details.leagues;
 
         // Prefer matching league, otherwise use first available
-        const preferredLeague = team2Leagues.includes(league) ? league : team2Leagues[0];
+        const preferredLeague = team2Leagues.includes(league)
+          ? league
+          : team2Leagues[0];
 
-        const url = buildComparisonUrl(teamName, compareTeam.trim(), league, preferredLeague);
+        const url = buildComparisonUrl(
+          teamName,
+          compareTeam.trim(),
+          league,
+          preferredLeague,
+        );
         navigate(url);
       } catch (error) {
         // Fallback to basic comparison without team2 league
@@ -47,7 +58,6 @@ const TeamTable = ({ theme = 'light' }) => {
 
   useEffect(() => {
     if (teamName) {
-
       // Fetch team data using the correct endpoint structure
       let endpoint = `${API_BASE_URL}${ENDPOINTS.TEAM}/${encodeURIComponent(teamName)}`;
       if (year && year !== "all") {
@@ -82,7 +92,7 @@ const TeamTable = ({ theme = 'light' }) => {
       if (league) {
         fetchTeamYears(teamName, league)
           .then((years) => {
-            setYearsData(Array.isArray(years) ? years : ['all']);
+            setYearsData(Array.isArray(years) ? years : ["all"]);
           })
           .catch((error) => {
             setYearsData([]); // Set empty array on error
@@ -101,7 +111,8 @@ const TeamTable = ({ theme = 'light' }) => {
           <h2 className={`team-title ${theme}`}>Team: {teamName}</h2>
           <YearDropDown
             ref={selectorRef}
-            years={Array.isArray(years) ? years : ['all']}
+            years={Array.isArray(years) ? years : ["all"]}
+            defaultYear={year}
             onYearChange={handleYearChange}
             theme={theme}
           />
@@ -115,10 +126,7 @@ const TeamTable = ({ theme = 'light' }) => {
             showLeagueYearSelection={true}
             style={{ minWidth: 250 }}
           />
-          <button
-            onClick={handleCompare}
-            className="compare-button enabled"
-          >
+          <button onClick={handleCompare} className="compare-button enabled">
             Compare
           </button>
         </div>
@@ -128,7 +136,9 @@ const TeamTable = ({ theme = 'light' }) => {
       </div>
       <div className="table">
         <AgGridTable
-          rowData={Array.isArray(teamData.playerEntrys) ? teamData.playerEntrys : []}
+          rowData={
+            Array.isArray(teamData.playerEntrys) ? teamData.playerEntrys : []
+          }
           columnDefs={[
             {
               headerName: "Player Name",
