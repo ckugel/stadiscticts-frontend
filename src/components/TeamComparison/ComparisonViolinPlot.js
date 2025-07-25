@@ -7,10 +7,7 @@ import {
   Title,
   Legend,
 } from "chart.js";
-import {
-  ViolinController,
-  Violin,
-} from "@sgratzl/chartjs-chart-boxplot";
+import { ViolinController, Violin } from "@sgratzl/chartjs-chart-boxplot";
 import { Chart } from "react-chartjs-2";
 import { fetchTeamByYearAndLeague } from "./teamUtils";
 import "./ComparisonViolinPlot.css";
@@ -48,15 +45,14 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
         // Fetch data for both teams using the existing utility function
         const [team1Data, team2Data] = await Promise.all([
           fetchTeamByYearAndLeague(teamOne.name, teamOne.year, teamOne.league),
-          fetchTeamByYearAndLeague(teamTwo.name, teamTwo.year, teamTwo.league)
+          fetchTeamByYearAndLeague(teamTwo.name, teamTwo.year, teamTwo.league),
         ]);
 
         setTeamOneData(team1Data);
         setTeamTwoData(team2Data);
-
       } catch (err) {
         setError(err.message);
-        console.error('Error fetching team data:', err);
+        console.error("Error fetching team data:", err);
       } finally {
         setLoading(false);
         // Restore scroll position after loading
@@ -72,15 +68,25 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
   }, [teamOne, teamTwo]);
 
   if (loading) {
-    return <div className="comparison-violin-plot-container">Loading team comparison...</div>;
+    return (
+      <div className="comparison-violin-plot-container">
+        Loading team comparison...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="comparison-violin-plot-container">Error: {error}</div>;
+    return (
+      <div className="comparison-violin-plot-container">Error: {error}</div>
+    );
   }
 
   if (!teamOneData || !teamTwoData) {
-    return <div className="comparison-violin-plot-container">No data available for comparison</div>;
+    return (
+      <div className="comparison-violin-plot-container">
+        No data available for comparison
+      </div>
+    );
   }
 
   // Process team data for violin plot - handle different possible data structures
@@ -110,23 +116,29 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
   const team2Values = processTeamData(teamTwoData);
 
   if (team1Values.length === 0 && team2Values.length === 0) {
-    return <div className="comparison-violin-plot-container">No ranking data available for comparison</div>;
+    return (
+      <div className="comparison-violin-plot-container">
+        No ranking data available for comparison
+      </div>
+    );
   }
+
+  console.log("Violin plot data.labels:", [teamOne.name, teamTwo.name]);
+  console.log("Violin plot data.datasets[0].data:", [team1Values, team2Values]);
 
   const data = {
     labels: [teamOne.name, teamTwo.name],
     datasets: [
       {
-        label: 'Team Comparison',
+        label: "Team Comparison",
         backgroundColor: [violinColors[0], violinColors[1]],
         borderColor: [borderColors[0], borderColors[1]],
         borderWidth: 2,
         outlierColor: "#999999",
         data: [team1Values, team2Values],
-      }
+      },
     ],
   };
-
   const options = {
     responsive: true,
     plugins: {
@@ -142,19 +154,22 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
             const teamData = dataIndex === 0 ? team1Values : team2Values;
 
             if (!teamData || teamData.length === 0) {
-              return ['No data available'];
+              return ["No data available"];
             }
 
-            const validValues = teamData.filter(val => typeof val === 'number' && !isNaN(val));
+            const validValues = teamData.filter(
+              (val) => typeof val === "number" && !isNaN(val),
+            );
 
             if (validValues.length === 0) {
-              return ['No valid ranking values'];
+              return ["No valid ranking values"];
             }
 
             const sorted = [...validValues].sort((a, b) => a - b);
             const min = sorted[0];
             const max = sorted[sorted.length - 1];
-            const mean = sorted.reduce((sum, val) => sum + val, 0) / sorted.length;
+            const mean =
+              sorted.reduce((sum, val) => sum + val, 0) / sorted.length;
 
             // Calculate quartiles for violin plot reference
             const q1 = sorted[Math.floor(sorted.length * 0.25)];
@@ -179,27 +194,28 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
         title: { display: true, text: "Ranking Value" },
       },
       x: {
-        title: { display: false, text: "Teams" },
-        categoryPercentage: 0.8,
-        barPercentage: 0.9,
+        title: { display: false, text: "dist" },
+        // categoryPercentage: 0.8,
+        // barPercentage: 0.9,
       },
     },
     elements: {
       violin: {
-        itemRadius: 2,
-        itemStyle: 'circle',
-        itemBackgroundColor: 'rgba(255,0,0,0.5)',
-        itemBorderColor: 'rgba(255,0,0,0.8)',
-        outlierRadius: 4,
-        medianColor: 'rgba(0,0,0,1)',
-        whiskerColor: 'rgba(0,0,0,0.8)',
+        itemRadius: 1,
+        itemStyle: "line",
+        itemBackgroundColor: "rgba(255,0,0,0.5)",
+        itemBorderColor: "rgba(255,0,0,0.8)",
+        outlierRadius: 0,
+        medianColor: "rgba(0,0,0,1)",
+        whiskerColor: "rgba(0,0,0,0.8)",
         whiskerWidth: 2,
+        jitter: 0,
         padding: 10,
-      }
+      },
     },
     interaction: {
       intersect: false,
-      mode: 'index',
+      mode: "index",
     },
   };
 

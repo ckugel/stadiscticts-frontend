@@ -10,7 +10,7 @@ const YearDropDown = forwardRef(
     }));
 
     const handleChange = (e) => {
-      const newYear = parseInt(e.target.value);
+      const newYear = e.target.value;
       setSelectedYear(newYear);
       if (onYearChange) {
         onYearChange(newYear);
