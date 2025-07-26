@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { fetchTeamDetails, getTeamSuggestions } from "./teamUtils";
+import { getDisplayLeagueName } from "../../utils/leagueUtils";
 import "./TeamSelectionBox.css";
 
 const TeamSelectionBox = ({
@@ -99,7 +100,7 @@ const TeamSelectionBox = ({
             >
               <div className="team-name">{team.teamName}</div>
               {team.league && (
-                <div className="team-league">League: {team.league}</div>
+                <div className="team-league">League: {getDisplayLeagueName(team.league)}</div>
               )}
             </div>
           ))}
@@ -123,7 +124,7 @@ const TeamSelectionBox = ({
                   }}
                   className={`selection-button ${theme} ${selectedLeague === lg ? "selected" : ""}`}
                 >
-                  {lg}
+                  {getDisplayLeagueName(lg)}
                 </button>
               ))}
             </div>

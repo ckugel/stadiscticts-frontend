@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Card from "./Cards/Card";
 import { API_BASE_URL, ENDPOINTS } from "../constants/api";
+import { getDisplayLeagueName } from "../utils/leagueUtils";
 
 const SearchResultsPage = () => {
   const location = useLocation();
@@ -50,7 +51,7 @@ const SearchResultsPage = () => {
                 key={index}
                 name={`${team.teamName}`}
                 link={`/team/${team.teamName}/all/${team.league}`}
-                league={team.league}
+                league={getDisplayLeagueName(team.league)}
               />
             ))}
           </div>

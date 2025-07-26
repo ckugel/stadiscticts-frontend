@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { API_BASE_URL, ENDPOINTS } from "../../constants/api";
+import React from "react";
+import { Link } from "react-router-dom";
+import { getLeagueDisplayName } from "../../utils/leagueUtils";
 import "../AgGrid/AgGrid.css";
 import AgGridTable from "../AgGrid/AgGridTable.js";
 
-const PlayerTable = () => {
-  const [data, setData] = useState({});
-  const { username, leagueName } = useParams();
-
-  useEffect(() => {
-    let endpoint = "";
-    if (username) {
-      endpoint = `${API_BASE_URL}${ENDPOINTS.PLAYER}/${username}`;
-    }
-
-    if (leagueName) {
-      endpoint += `/${leagueName}`;
-    }
-
-    if (endpoint) {
-      fetch(endpoint)
-        .then((response) => response.json())
-        .then((data) => setData(data))
-        .catch((error) => console.error("Error fetching data:", error));
-    }
-  }, [username, leagueName]);
-
+const PlayerTable = ({ data }) => {
   return (
     <div className="TablePage">
       <div className="table">
         <AgGridTable
-          rowData={Array.isArray(data) ? data : []}
+          rowData={data || []}
           columnDefs={[
             {
               headerName: "Team",
@@ -47,6 +26,13 @@ const PlayerTable = () => {
             {
               headerName: "Year",
               field: "year",
+              sortable: true,
+              flex: 1,
+            },
+            {
+              headerName: "League",
+              field: "league",
+              cellRenderer: (params) => getLeagueDisplayName(params.data.league),
               sortable: true,
               flex: 1,
             },
