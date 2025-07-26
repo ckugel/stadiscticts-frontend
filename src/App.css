@@ -18,10 +18,7 @@
     --secondary-accent-text-color: #ffffff;
 
     /* Other colors */
-    --secondary-color: #074445;
-
     --tertiary-color: #000000;
-
     --search-size: 30px;
 }
 
@@ -37,6 +34,10 @@
     column-gap: 2em;
     align-items: center;
     margin-bottom: 1%;
+}
+
+.main-text {
+    color: var(--accent-color);
 }
 
 #root html body {
@@ -93,7 +94,7 @@
 }
 
 main {
-    height: 82%;
+    height: 100%;
     margin-bottom: 20px;
 }
 

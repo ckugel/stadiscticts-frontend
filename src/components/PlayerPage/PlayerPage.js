@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { API_BASE_URL, ENDPOINTS } from "../../constants/api";
 import PlayerTable from "./PlayerTable";
 import PlayerRankingGraph from "./PlayerRankingGraph";
+import "./PlayerPage.css";
 
 const PlayerPage = () => {
   const [data, setData] = useState([]);
+  let [mostRecentRanking, setMostRecentRanking] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { username, leagueName } = useParams();
@@ -31,6 +33,7 @@ const PlayerPage = () => {
         })
         .then((data) => {
           setData(Array.isArray(data) ? data : []);
+          setMostRecentRanking(data.length > 0 ? data[0].displayValue : 0);
           setError(null);
         })
         .catch((error) => {
@@ -40,8 +43,9 @@ const PlayerPage = () => {
         .finally(() => {
           setLoading(false);
         });
+
     }
-  }, [username, leagueName]);
+  }, [username, leagueName, mostRecentRanking]);
 
   if (loading) {
     return <div className="loading">Loading player data...</div>;
@@ -54,17 +58,14 @@ const PlayerPage = () => {
   return (
     <div className="PlayerPage">
       <div className="player-content">
-        <h1>Player: {username}</h1>
-        {leagueName && <h2>League: {leagueName}</h2>}
-
-        <div className="player-graph-section">
-          <PlayerRankingGraph data={data} />
+        <h1>{username}</h1>
+        <h2> Ranking Value: <u>{mostRecentRanking}</u></h2>
+        {leagueName && <h3>League: {leagueName}</h3>}
+          <PlayerRankingGraph data={data}  />
         </div>
-
-        <div className="player-table-section">
+        <div className="PlayerTable">
           <PlayerTable data={data} />
         </div>
-      </div>
     </div>
   );
 };

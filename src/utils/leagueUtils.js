@@ -21,8 +21,17 @@ export const leagueDisplayNames = {
  * @param {string} backendLeagueName - The league name from the backend
  * @returns {string} - The display-friendly league name
  */
-export const getDisplayLeagueName = (backendLeagueName) => {
-  return leagueDisplayNames[backendLeagueName] || backendLeagueName;
+export const getLeagueDisplayName = (leagueName) => {
+  return leagueDisplayNames[leagueName] || leagueName;
+};
+
+/**
+ * Convert a backend league name to a display-friendly name (alias for consistency)
+ * @param {string} backendLeagueName - The league name from the backend
+ * @returns {string} - The display-friendly league name
+ */
+export const getDisplayLeagueName = (leagueName) => {
+  return leagueDisplayNames[leagueName] || leagueName;
 };
 
 /**

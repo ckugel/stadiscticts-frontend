@@ -6,7 +6,6 @@ import AgGridTable from "../AgGrid/AgGridTable.js";
 
 const PlayerTable = ({ data }) => {
   return (
-    <div className="TablePage">
       <div className="table">
         <AgGridTable
           rowData={data || []}
@@ -38,13 +37,12 @@ const PlayerTable = ({ data }) => {
             },
             {
               headerName: "Ranking Value",
-              field: "rankingValue",
+              field: "displayValue",
               sortable: true,
               flex: 1,
             },
           ]}
         ></AgGridTable>
-      </div>
     </div>
   );
 };

@@ -108,7 +108,7 @@ const TeamTable = ({ theme = "light" }) => {
     <div className="TablePage">
       <div className="aboveTable">
         <div className="left-section">
-          <h2 className={`team-title ${theme}`}>Team: {teamName}</h2>
+          <h2 className={`team-title ${theme}`}>{teamName}</h2>
           <YearDropDown
             ref={selectorRef}
             years={Array.isArray(years) ? years : ["all"]}
@@ -158,7 +158,7 @@ const TeamTable = ({ theme = "light" }) => {
             },
             {
               headerName: "Ranking Value",
-              field: "rankingValue",
+              field: "displayValue",
               sortable: true,
               flex: 1,
             },

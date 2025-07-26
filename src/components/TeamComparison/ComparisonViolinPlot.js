@@ -107,7 +107,7 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
     }
 
     const values = players
-      .map((player) => player.rankingValue)
+      .map((player) => player.displayValue)
       .filter((val) => val != null && val !== undefined && !isNaN(val));
     return values;
   };

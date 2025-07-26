@@ -23,14 +23,7 @@
     font-size: 2rem;
     font-weight: bold;
     margin: 0;
-}
-
-.team-title.light {
-    color: #000;
-}
-
-.team-title.dark {
-    color: #fff;
+    color: var(--accent-text-color);
 }
 
 .center-section {
