@@ -12,7 +12,9 @@ RUN npm install
 
 RUN npm install react-router-dom
 
-RUN npm install -D tailwindcss postcss autoprefixer
+RUN npm install react-icons
+
+RUN npm install -D tailwindcss@v3 postcss autoprefixer
 
 # Copy the rest of the application code
 COPY . .

@@ -1,37 +1,36 @@
-import { Box, IconButton, Text, Flex, Button } from '@chakra-ui/react'
-import { ChevronRightIcon } from '@chakra-ui/icons'
+import React from 'react';
+import PropTypes from 'prop-types';
+import SearchBar from '../SearchBar/SearchBar';
+import '../../App.css';
 
-interface Props {
-  onShowSidebar: Function,
-  showSidebarButton: boolean
-}
+const Header = ({ showSidebarButton = true, onShowSidebar, onSearch }) => {
+    return (
+        <div style={{ backgroundColor: '#151515', padding: '16px', color: 'white', display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <div style={{ flex: 1 }}>
+                {showSidebarButton && (
+                    <button onClick={onShowSidebar} style={{ color: 'white', border: '1px solid white', padding: '8px' }}>
+                        {'>'}
+                    </button>
+                )}
+            </div>
+            {!showSidebarButton && (
+                <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '20px' }}>
+                    <span style={{ fontSize: '16px', marginRight: '20px' }}>About Us</span>
+                    <span style={{ fontSize: '16px', marginRight: '20px' }}>Contact</span>
+                    <span style={{ fontSize: '16px', marginRight: '20px' }}>Terms</span>
+                </div>
+            )}
+            <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '20px' }}>
+                <SearchBar onSearch={onSearch} />
+            </div>
+        </div>
+    );
+};
 
-const Header = ({ showSidebarButton = true, onShowSidebar }: Props) => {
-  return (
-    <Flex bg="#151515" p={4} color="white" justifyContent="center" w="100%">
-      <Box flex="1">
-        {showSidebarButton && (
-          <IconButton
-            icon={<ChevronRightIcon w={5} h={5} />}
-            colorScheme="white"
-            variant="outline"
-            size="sm"
-            onClick={onShowSidebar}
-          />
-        )}
-      </Box>
-      {!showSidebarButton && (
-      <Box display="flex" ml="auto" alignItems="center" justifyContent="center" h="30px">
-        <Text fontSize="md" mr="5">About Us</Text>
-        <Text fontSize="md" mr="5">Contact</Text>
-        <Text fontSize="md" mr="5">Terms</Text>
-      </Box>
-      )}
-      <Box display="flex" ml="auto" alignItems="center" justifyContent="center" h="30px">
-        <Button colorScheme='white' variant="outline" size="sm">Sign Up</Button>
-      </Box>
-    </Flex>
-  )
-}
+Header.propTypes = {
+    showSidebarButton: PropTypes.bool,
+    onShowSidebar: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
+};
 
-export default Header
+export default Header;
