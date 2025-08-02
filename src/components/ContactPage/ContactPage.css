@@ -1,0 +1,44 @@
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-method {
+    background: var(--dark-background-one);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.contact-method h3 {
+    color: var(--accent-color);
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.contact-method p {
+    color: #ffffff;
+    margin: 0;
+    font-weight: bold;
+}
+
+.contact-form-container h2 {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}

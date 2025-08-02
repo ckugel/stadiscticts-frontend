@@ -12,7 +12,7 @@ import {
   fetchTeamYears,
 } from "../TeamComparison/teamUtils";
 
-const TeamTable = ({ theme = "light" }) => {
+const TeamTable = () => {
   const [teamData, setTeamData] = useState({ playerEntrys: [] });
   const [years, setYearsData] = useState(["all"]);
   const [compareTeam, setCompareTeam] = useState("");
@@ -108,13 +108,12 @@ const TeamTable = ({ theme = "light" }) => {
     <div className="TablePage">
       <div className="aboveTable">
         <div className="left-section">
-          <h2 className={`team-title ${theme}`}>{teamName}</h2>
+          <h2 className="team-title">{teamName}</h2>
           <YearDropDown
             ref={selectorRef}
             years={Array.isArray(years) ? years : ["all"]}
             defaultYear={year}
             onYearChange={handleYearChange}
-            theme={theme}
           />
         </div>
         <div className="center-section">
@@ -122,7 +121,6 @@ const TeamTable = ({ theme = "light" }) => {
             placeholder="Compare to another team..."
             value={compareTeam}
             onChange={handleCompareTeamChange}
-            theme={theme}
             showLeagueYearSelection={true}
             style={{ minWidth: 250 }}
           />
@@ -157,7 +155,7 @@ const TeamTable = ({ theme = "light" }) => {
               flex: 1,
             },
             {
-              headerName: "Ranking Value",
+              headerName: "Pivot Points",
               field: "displayValue",
               sortable: true,
               flex: 1,

@@ -6,7 +6,7 @@ import TeamSelectionBox from './TeamSelectionBox';
 import { fetchTeamDetails, fetchTeamYears } from './teamUtils';
 import './TeamComparisonSection.css';
 
-const TeamComparisonSection = ({ options, theme }) => {
+const TeamComparisonSection = ({ options }) => {
     const [teamInputs, setTeamInputs] = useState(['', '']);
     const [teamDetails, setTeamDetails] = useState([null, null]);
     const [selectedLeague, setSelectedLeague] = useState([null, null]);
@@ -104,7 +104,6 @@ const TeamComparisonSection = ({ options, theme }) => {
                         placeholder={`Team ${idx + 1} Name`}
                         value={input}
                         onChange={(value) => handleTeamInputChange(idx, value)}
-                        theme={theme}
                         showLeagueYearSelection={true}
                         teamDetails={teamDetails[idx]}
                         selectedLeague={selectedLeague[idx]}

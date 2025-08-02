@@ -8,13 +8,6 @@
 .year-dropdown-label {
     font-size: 14px;
     font-weight: 500;
-}
-
-.year-dropdown-label.light {
-    color: #000;
-}
-
-.year-dropdown-label.dark {
     color: #fff;
 }
 
@@ -25,14 +18,6 @@
     border-radius: 4px;
     cursor: pointer;
     min-width: 80px;
-}
-
-.year-dropdown-select.light {
-    color: #000;
-    background: #fff;
-}
-
-.year-dropdown-select.dark {
     color: #fff;
     background: #222;
 }
@@ -45,14 +30,6 @@
 
 .year-dropdown-option {
     padding: 4px 8px;
-}
-
-.year-dropdown-option.light {
-    background: #fff;
-    color: #000;
-}
-
-.year-dropdown-option.dark {
     background: #222;
     color: #fff;
 }

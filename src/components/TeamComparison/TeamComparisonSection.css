@@ -30,13 +30,6 @@
 
 .loading-message {
     margin: 16px 0;
-}
-
-.loading-message.light {
-    color: #666;
-}
-
-.loading-message.dark {
     color: #ccc;
 }
 
@@ -49,36 +42,32 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .chart-type-button {
-    padding: 10px 20px;
-    border: 2px solid #007bff;
-    background-color: transparent;
-    color: #007bff;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    color: var(--accent-color);
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: bold;
+    transition: all 0.2s ease;
 }
 
 .chart-type-button:hover {
-    background-color: #007bff;
-    color: white;
+    background: var(--accent-color-light);
 }
 
 .chart-type-button.active {
-    background-color: #007bff;
-    color: white;
-    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+    background: var(--accent-color);
+    color: var(--accent-text-color);
 }
 
 .chart-container {
-    margin-top: 24px;
-    display: flex;
-    justify-content: center;
+    margin-top: 32px;
+    width: 100%;
 }
 
 .box-plot-container {

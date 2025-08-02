@@ -9,7 +9,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, #000000, var(--accent-color));
+    background: var(--linear-background-gradiant)
 }
 
 .main-page-header {

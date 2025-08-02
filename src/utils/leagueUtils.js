@@ -1,19 +1,11 @@
 // League name mapping from backend values to display-friendly names
 export const leagueDisplayNames = {
-  MENS_COLLEGE_D1: "Men's College D1",
-  MENS_COLLEGE_D3: "Men's College D3",
-  WOMENS_COLLEGE_D1: "Women's College D1",
-  WOMENS_COLLEGE_D3: "Women's College D3",
+  MENS_COLLEGE: "Men's College",
+  WOMENS_COLLEGE: "Women's College",
   MIXED_CLUB: "Mixed Club",
   MENS_CLUB: "Men's Club",
   WOMENS_CLUB: "Women's Club",
-  WOMENS_YCC_U17: "Women's YCC U17",
   OTHER: "Other",
-  MENS_YCC_U20: "Men's YCC U20",
-  WOMENS_YCC_U20: "Women's YCC U20",
-  MIXED_YCC_U20: "Mixed YCC U20",
-  MIXED_YCC_U17: "Mixed YCC U17",
-  MENS_YCC_U17: "Men's YCC U17"
 };
 
 /**
