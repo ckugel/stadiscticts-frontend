@@ -9,7 +9,6 @@ const TeamSelectionBox = ({
   onChange,
   onTeamSelect,
   onTeamDetailsChange,
-  theme = "dark",
   style = {},
   showLeagueYearSelection = false,
   teamDetails = null,
@@ -86,17 +85,17 @@ const TeamSelectionBox = ({
           handleTeamSubmit();
         }}
         onKeyPress={(e) => e.key === "Enter" && handleTeamSubmit()}
-        className={`team-selection-input ${theme}`}
+        className="team-selection-input"
         autoComplete="off"
       />
 
       {showDropdown && searchResults.length > 0 && (
-        <div className={`team-selection-dropdown ${theme}`}>
+        <div className="team-selection-dropdown">
           {searchResults.map((team, i) => (
             <div
               key={i}
               onMouseDown={() => handleSelectTeam(team)}
-              className={`team-selection-dropdown-item ${theme}`}
+              className="team-selection-dropdown-item"
             >
               <div className="team-name">{team.teamName}</div>
               {team.league && (
@@ -113,7 +112,7 @@ const TeamSelectionBox = ({
         teamDetails &&
         teamDetails.leagues.length > 0 && (
           <div className="selection-section">
-            <span className={`selection-label ${theme}`}>Select League:</span>
+            <span className="selection-label">Select League:</span>
             <div className="selection-buttons">
               {teamDetails.leagues.map((lg) => (
                 <button
@@ -122,7 +121,7 @@ const TeamSelectionBox = ({
                     onLeagueChange(lg);
                     if (onYearChange) onYearChange(null);
                   }}
-                  className={`selection-button ${theme} ${selectedLeague === lg ? "selected" : ""}`}
+                  className={`selection-button ${selectedLeague === lg ? "selected" : ""}`}
                 >
                   {getDisplayLeagueName(lg)}
                 </button>
@@ -136,13 +135,13 @@ const TeamSelectionBox = ({
         selectedLeague &&
         teamDetails.years.length > 0 && (
           <div className="selection-section">
-            <span className={`selection-label ${theme}`}>Select Year:</span>
+            <span className="selection-label">Select Year:</span>
             <div className="selection-buttons">
               {teamDetails.years.slice(1).map((yr) => (
                 <button
                   key={yr}
                   onClick={() => onYearChange(yr)}
-                  className={`selection-button ${theme} ${selectedYear === yr ? "selected" : ""}`}
+                  className={`selection-button ${selectedYear === yr ? "selected" : ""}`}
                 >
                   {yr}
                 </button>

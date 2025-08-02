@@ -6,13 +6,14 @@ import TeamTable from "./components/TeamPage/TeamTable";
 import SearchBar from "./components/SearchBar/SearchBar";
 import SearchResultsPage from "./components/SearchResultsPage";
 import MainPage from "./components/MainPage/MainPage";
-import ThemeToggleButton from "./components/ThemeToggleButton";
 import TeamComparisonSection from "./components/TeamComparison/TeamComparisonSection";
+import AboutPage from "./components/AboutPage/AboutPage";
+import ContactPage from "./components/ContactPage/ContactPage";
+import PivotPointsPage from "./components/PivotPointsPage/PivotPointsPage";
 import { API_BASE_URL, ENDPOINTS } from "./constants/api";
 
 function App() {
   const [options, setOptions] = useState({ players: [], teams: [] });
-  const [theme, setTheme] = useState("dark");
 
   const fetchOptions = (query = "") => {
     fetch(
@@ -31,17 +32,9 @@ function App() {
     fetchOptions(query);
   };
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
-
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-
   return (
     <Router>
-      <div className={`App ${theme}`}>
+      <div className="App">
         <header className="App-header flex justify-between items-center p-4">
           <h1 className="text-3xl font-bold underline main-text">
             <Link to="/">
@@ -52,25 +45,25 @@ function App() {
               ticts
             </Link>
           </h1>
+          <nav className="navigator">
+            <Link to="/about" className="nav-link">
+              About Us
+            </Link>
+            <Link to="/contact" className="nav-link">
+              Contact
+            </Link>
+            <Link to="/compare-teams" className="nav-link">
+              Compare Teams
+            </Link>
+            <Link to="/Pivot-points-explained" className="nav-link">
+              What are pivot points?
+            </Link>
+          </nav>
           <div className="flex items-center">
             <SearchBar onSearch={handleSearch} />
-            <ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
           </div>
         </header>
-        <nav className="navigator">
-          <Link to="/compare-teams" className="nav-link">
-            Compare Teams
-          </Link>
-          <Link to="/about" className="nav-link">
-            About Us
-          </Link>
-          <Link to="/contact" className="nav-link">
-            Contact
-          </Link>
-          <Link to="/mmr-explained" className="nav-link">
-            What is MMR?
-          </Link>
-        </nav>
+
         <main>
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -81,15 +74,18 @@ function App() {
             />
             <Route
               path="/team/:teamName/:year?/:league?"
-              element={<TeamTable theme={theme} />}
+              element={<TeamTable />}
             />
             <Route path="/search" element={<SearchResultsPage />} />
             <Route
               path="/compare-teams"
               element={
-                <TeamComparisonSection options={options} theme={theme} />
+                <TeamComparisonSection options={options} />
               }
             />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/Pivot-points-explained" element={<PivotPointsPage />} />
           </Routes>
         </main>
       </div>

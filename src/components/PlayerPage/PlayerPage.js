@@ -43,7 +43,6 @@ const PlayerPage = () => {
         .finally(() => {
           setLoading(false);
         });
-
     }
   }, [username, leagueName, mostRecentRanking]);
 
@@ -59,13 +58,16 @@ const PlayerPage = () => {
     <div className="PlayerPage">
       <div className="player-content">
         <h1>{username}</h1>
-        <h2> Ranking Value: <u>{mostRecentRanking}</u></h2>
+        <h2>
+          {" "}
+          Pivot Points: <u>{mostRecentRanking}</u>
+        </h2>
         {leagueName && <h3>League: {leagueName}</h3>}
-          <PlayerRankingGraph data={data}  />
-        </div>
-        <div className="PlayerTable">
-          <PlayerTable data={data} />
-        </div>
+        <PlayerRankingGraph data={data} />
+      </div>
+      <div className="PlayerTable">
+        <PlayerTable data={data} />
+      </div>
     </div>
   );
 };

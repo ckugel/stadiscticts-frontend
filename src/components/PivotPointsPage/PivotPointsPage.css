@@ -1,0 +1,38 @@
+.limitation-explanation {
+    margin-bottom: 20px;
+}
+
+.important-highlight {
+    background: rgba(24, 233, 239, 0.1);
+    border-left: 4px solid var(--accent-color);
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+}
+
+.scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.scenario {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(24, 233, 239, 0.2);
+}
+
+.scenario h3 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.scenario p {
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
