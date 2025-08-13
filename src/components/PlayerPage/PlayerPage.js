@@ -7,6 +7,7 @@ import "./PlayerPage.css";
 
 const PlayerPage = () => {
   const [data, setData] = useState([]);
+  const [graphData, setGraphData] = useState([]);
   let [mostRecentRanking, setMostRecentRanking] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,8 +15,10 @@ const PlayerPage = () => {
 
   useEffect(() => {
     let endpoint = "";
+    let graphEndpoint = "";
     if (username) {
       endpoint = `${API_BASE_URL}${ENDPOINTS.PLAYER}/${username}`;
+      graphEndpoint = `${API_BASE_URL}${ENDPOINTS.GRAPH}/${username}`;
     }
 
     if (leagueName) {
@@ -34,6 +37,29 @@ const PlayerPage = () => {
         .then((data) => {
           setData(Array.isArray(data) ? data : []);
           setMostRecentRanking(data.length > 0 ? data[0].displayValue : 0);
+          setError(null);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setError(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+    if (graphEndpoint) {
+      fetch(graphEndpoint)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((graphData) => {
+          setGraphData(Array.isArray(graphData) ? graphData : []);
+          setMostRecentRanking(
+            graphData.length > 0 ? graphData[0].displayValue : 0,
+          );
           setError(null);
         })
         .catch((error) => {
@@ -63,7 +89,7 @@ const PlayerPage = () => {
           Pivot Points: <u>{mostRecentRanking}</u>
         </h2>
         {leagueName && <h3>League: {leagueName}</h3>}
-        <PlayerRankingGraph data={data} />
+        <PlayerRankingGraph data={graphData} />
       </div>
       <div className="PlayerTable">
         <PlayerTable data={data} />

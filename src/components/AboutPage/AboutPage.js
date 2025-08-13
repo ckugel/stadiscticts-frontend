@@ -19,7 +19,7 @@ const AboutPage = () => {
               want people in the community to be able to compare rosters to see
               how well teams can do against each other. We also want to provide
               league rankings of both teams and players, however that is a
-              feature the is still in development.
+              feature that is still in development.
             </p>
           </section>
 

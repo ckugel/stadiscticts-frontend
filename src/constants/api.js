@@ -10,10 +10,10 @@ export const ENDPOINTS = {
   SEARCH: "/search",
   TEAM: "/team",
   PLAYER: "/player",
+  GRAPH: "/player/graph",
 };
 
 // Helper function to build full API URLs
 export const buildApiUrl = (endpoint, params = "") => {
   return `${API_BASE_URL}${endpoint}${params}`;
 };
-
