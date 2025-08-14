@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import "../shared/InfoPage.css";
-import "./AboutPage.css";
 
 const AboutPage = () => {
   return (
