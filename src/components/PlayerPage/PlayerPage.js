@@ -3,17 +3,22 @@ import { useParams } from "react-router-dom";
 import { API_BASE_URL, ENDPOINTS } from "../../constants/api";
 import PlayerTable from "./PlayerTable";
 import PlayerRankingGraph from "./PlayerRankingGraph";
+import "./PlayerPage.css";
 
 const PlayerPage = () => {
   const [data, setData] = useState([]);
+  const [graphData, setGraphData] = useState([]);
+  let [mostRecentRanking, setMostRecentRanking] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { username, leagueName } = useParams();
 
   useEffect(() => {
     let endpoint = "";
+    let graphEndpoint = "";
     if (username) {
       endpoint = `${API_BASE_URL}${ENDPOINTS.PLAYER}/${username}`;
+      graphEndpoint = `${API_BASE_URL}${ENDPOINTS.GRAPH}/${username}`;
     }
 
     if (leagueName) {
@@ -31,6 +36,7 @@ const PlayerPage = () => {
         })
         .then((data) => {
           setData(Array.isArray(data) ? data : []);
+          setMostRecentRanking(data.length > 0 ? data[0].displayValue : 0);
           setError(null);
         })
         .catch((error) => {
@@ -41,7 +47,30 @@ const PlayerPage = () => {
           setLoading(false);
         });
     }
-  }, [username, leagueName]);
+    if (graphEndpoint) {
+      fetch(graphEndpoint)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((graphData) => {
+          setGraphData(Array.isArray(graphData) ? graphData : []);
+          setMostRecentRanking(
+            graphData.length > 0 ? graphData[0].displayValue : 0,
+          );
+          setError(null);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setError(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [username, leagueName, mostRecentRanking]);
 
   if (loading) {
     return <div className="loading">Loading player data...</div>;
@@ -54,16 +83,16 @@ const PlayerPage = () => {
   return (
     <div className="PlayerPage">
       <div className="player-content">
-        <h1>Player: {username}</h1>
-        {leagueName && <h2>League: {leagueName}</h2>}
-
-        <div className="player-graph-section">
-          <PlayerRankingGraph data={data} />
-        </div>
-
-        <div className="player-table-section">
-          <PlayerTable data={data} />
-        </div>
+        <h1>{username}</h1>
+        <h2>
+          {" "}
+          Pivot Points: <u>{mostRecentRanking}</u>
+        </h2>
+        {leagueName && <h3>League: {leagueName}</h3>}
+        <PlayerRankingGraph data={graphData} />
+      </div>
+      <div className="PlayerTable">
+        <PlayerTable data={data} />
       </div>
     </div>
   );

@@ -12,14 +12,6 @@
     border: 1px solid var(--accent-color);
     border-radius: 4px;
     width: 100%;
-}
-
-.team-selection-input.light {
-    color: #000;
-    background: #fff;
-}
-
-.team-selection-input.dark {
     color: #fff;
     background: #222;
 }
@@ -39,13 +31,6 @@
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
-}
-
-.team-selection-dropdown.light {
-    background: #fff;
-}
-
-.team-selection-dropdown.dark {
     background: #222;
 }
 
@@ -57,25 +42,14 @@
     cursor: pointer;
     padding: 8px 12px;
     border-bottom: 1px solid #eee;
+    color: #fff;
 }
 
 .team-selection-dropdown-item:last-child {
     border-bottom: none;
 }
 
-.team-selection-dropdown-item.light {
-    color: #000;
-}
-
-.team-selection-dropdown-item.dark {
-    color: #fff;
-}
-
-.team-selection-dropdown-item:hover.light {
-    background-color: #f0f0f0;
-}
-
-.team-selection-dropdown-item:hover.dark {
+.team-selection-dropdown-item:hover {
     background-color: #333;
 }
 
@@ -100,53 +74,48 @@
 }
 
 .selection-label {
-    font-size: 12px;
-}
-
-.selection-label.light {
-    color: #666;
-}
-
-.selection-label.dark {
-    color: #ccc;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 4px;
+    display: block;
 }
 
 .selection-buttons {
     display: flex;
-    gap: 4px;
     flex-wrap: wrap;
-    margin-top: 2px;
+    gap: 4px;
 }
 
 .selection-button {
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 4px 8px;
     border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    background: #222;
+    color: white;
     cursor: pointer;
+    font-size: 12px;
 }
 
-.selection-button.light {
-    background: #fff;
-    color: #000;
+.selection-button:hover {
+    background: var(--accent-color-light);
 }
 
-.selection-button.dark {
-    background: #333;
-    color: #fff;
+.selection-button.selected {
+    background: var(--accent-color);
+    color: var(--accent-text-color);
 }
 
 .team-selection-box.secondary .selection-button {
     border: 1px solid var(--secondary-accent-color);
+    color: var(--secondary-accent-text-color);
 }
 
-.selection-button.selected {
-    background: var(--accent-color) !important;
-    color: var(--accent-text-color) !important;
-    font-weight: bold;
+.team-selection-box.secondary .selection-button:hover {
+    background: var(--secondary-accent-color-light);
 }
 
 .team-selection-box.secondary .selection-button.selected {
-    background: var(--secondary-accent-color) !important;
-    color: var(--secondary-accent-text-color) !important;
-    font-weight: bold;
+    background: var(--secondary-accent-color);
+    color: var(--secondary-accent-text-color);
 }

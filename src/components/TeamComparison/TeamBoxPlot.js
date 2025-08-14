@@ -48,15 +48,14 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
         // Fetch data for both teams using the existing utility function
         const [team1Data, team2Data] = await Promise.all([
           fetchTeamByYearAndLeague(teamOne.name, teamOne.year, teamOne.league),
-          fetchTeamByYearAndLeague(teamTwo.name, teamTwo.year, teamTwo.league)
+          fetchTeamByYearAndLeague(teamTwo.name, teamTwo.year, teamTwo.league),
         ]);
 
         setTeamOneData(team1Data);
         setTeamTwoData(team2Data);
-
       } catch (err) {
         setError(err.message);
-        console.error('Error fetching team data:', err);
+        console.error("Error fetching team data:", err);
       } finally {
         setLoading(false);
         // Restore scroll position after loading
@@ -72,7 +71,9 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
   }, [teamOne, teamTwo]);
 
   if (loading) {
-    return <div className="team-box-plot-container">Loading team comparison...</div>;
+    return (
+      <div className="team-box-plot-container">Loading team comparison...</div>
+    );
   }
 
   if (error) {
@@ -80,7 +81,11 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
   }
 
   if (!teamOneData || !teamTwoData) {
-    return <div className="team-box-plot-container">No data available for comparison</div>;
+    return (
+      <div className="team-box-plot-container">
+        No data available for comparison
+      </div>
+    );
   }
 
   // Process team data for box plot - handle different possible data structures
@@ -101,7 +106,7 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
     }
 
     const values = players
-      .map((player) => player.rankingValue)
+      .map((player) => player.displayValue)
       .filter((val) => val != null && val !== undefined && !isNaN(val));
     return values;
   };
@@ -110,20 +115,24 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
   const team2Values = processTeamData(teamTwoData);
 
   if (team1Values.length === 0 && team2Values.length === 0) {
-    return <div className="team-box-plot-container">No ranking data available for comparison</div>;
+    return (
+      <div className="team-box-plot-container">
+        No ranking data available for comparison
+      </div>
+    );
   }
 
   const data = {
     labels: [teamOne.name, teamTwo.name],
     datasets: [
       {
-        label: 'Team Comparison',
+        label: "Team Comparison",
         backgroundColor: [boxColors[0], boxColors[1]],
         borderColor: [borderColors[0], borderColors[1]],
         borderWidth: 2,
         outlierColor: "#999999",
         data: [team1Values, team2Values],
-      }
+      },
     ],
   };
 
@@ -133,7 +142,7 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
       legend: { position: "top" },
       title: {
         display: true,
-        text: `Team Player Ranking Value Comparison (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
+        text: `Team Player Pivot Point Comparison (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
       },
       tooltip: {
         callbacks: {
@@ -142,19 +151,22 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
             const teamData = dataIndex === 0 ? team1Values : team2Values;
 
             if (!teamData || teamData.length === 0) {
-              return ['No data available'];
+              return ["No data available"];
             }
 
-            const validValues = teamData.filter(val => typeof val === 'number' && !isNaN(val));
+            const validValues = teamData.filter(
+              (val) => typeof val === "number" && !isNaN(val),
+            );
 
             if (validValues.length === 0) {
-              return ['No valid ranking values'];
+              return ["No valid ranking values"];
             }
 
             const sorted = [...validValues].sort((a, b) => a - b);
             const min = sorted[0];
             const max = sorted[sorted.length - 1];
-            const mean = sorted.reduce((sum, val) => sum + val, 0) / sorted.length;
+            const mean =
+              sorted.reduce((sum, val) => sum + val, 0) / sorted.length;
 
             // Calculate quartiles for box plot reference
             const q1 = sorted[Math.floor(sorted.length * 0.25)];
@@ -176,7 +188,7 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
     },
     scales: {
       y: {
-        title: { display: true, text: "Ranking Value" },
+        title: { display: true, text: "Pivot Points" },
       },
       x: {
         title: { display: false, text: "Teams" },
@@ -187,20 +199,20 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
     elements: {
       boxplot: {
         itemRadius: 2,
-        itemStyle: 'circle',
-        itemBackgroundColor: 'rgba(255,0,0,0.5)',
-        itemBorderColor: 'rgba(255,0,0,0.8)',
+        itemStyle: "circle",
+        itemBackgroundColor: "rgba(255,0,0,0.5)",
+        itemBorderColor: "rgba(255,0,0,0.8)",
         outlierRadius: 4,
-        medianColor: 'rgba(0,0,0,1)',
-        lowerBackgroundColor: 'rgba(0,0,0,0.1)',
-        upperBackgroundColor: 'rgba(0,0,0,0.1)',
-        whiskerColor: 'rgba(0,0,0,0.8)',
+        medianColor: "rgba(0,0,0,1)",
+        lowerBackgroundColor: "rgba(0,0,0,0.1)",
+        upperBackgroundColor: "rgba(0,0,0,0.1)",
+        whiskerColor: "rgba(0,0,0,0.8)",
         whiskerWidth: 2,
-      }
+      },
     },
     interaction: {
       intersect: false,
-      mode: 'index',
+      mode: "index",
     },
   };
 

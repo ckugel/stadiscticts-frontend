@@ -1,0 +1,132 @@
+.PlayerRankingGraph {
+    height: 500px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.graph-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-text-color);
+}
+
+.present-graph {
+    height: 500px;
+}
+
+.no-graph {
+    height: 0px;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 40px;
+  color: var(--accent-text-color);
+  font-size: 1.1rem;
+}
+
+.player-graph-section {
+  height: 100%;
+}
+
+.insufficient-data-message {
+  text-align: center;
+  padding: 40px;
+  color: var(--accent-text-color);
+  font-size: 1.1rem;
+  line-height: 1.5;
+    height: 40px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--accent-text-color);
+  font-weight: 500;
+}
+
+.radio-label input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-color);
+  cursor: pointer;
+}
+
+.radio-label span {
+  user-select: none;
+}
+
+.radio-label:hover {
+  color: var(--accent-color);
+}
+
+.radio-label input[type="radio"]:checked + span {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.custom-tooltip {
+  background-color: rgba(7, 68, 69, 0.95) !important;
+  border: 2px solid var(--accent-color) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  box-shadow: 0 4px 12px rgba(24, 233, 239, 0.4) !important;
+  font-size: 0.9rem !important;
+  color: white !important;
+  z-index: 1000 !important;
+  font-family: inherit !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.custom-tooltip p {
+  margin: 6px 0 !important;
+  color: white !important;
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+}
+
+.custom-tooltip strong {
+  font-weight: 600 !important;
+  color: var(--accent-color) !important;
+}
+
+/* Light theme tooltip - darker background */
+body.light .custom-tooltip {
+  background-color: rgba(7, 68, 69, 0.92) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(7, 68, 69, 0.3) !important;
+}
+
+body.light .custom-tooltip p {
+  color: white !important;
+}
+
+body.light .custom-tooltip strong {
+  color: var(--accent-color) !important;
+}
+
+/* Dark theme tooltip - even darker */
+body.dark .custom-tooltip {
+  background-color: rgba(7, 68, 69, 0.98) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(24, 233, 239, 0.5) !important;
+}
+
+body.dark .custom-tooltip p {
+  color: white !important;
+}
+
+body.dark .custom-tooltip strong {
+  color: var(--accent-color) !important;
+}

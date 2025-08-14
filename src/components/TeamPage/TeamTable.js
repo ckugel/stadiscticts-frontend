@@ -12,7 +12,7 @@ import {
   fetchTeamYears,
 } from "../TeamComparison/teamUtils";
 
-const TeamTable = ({ theme = "light" }) => {
+const TeamTable = () => {
   const [teamData, setTeamData] = useState({ playerEntrys: [] });
   const [years, setYearsData] = useState(["all"]);
   const [compareTeam, setCompareTeam] = useState("");
@@ -67,6 +67,8 @@ const TeamTable = ({ theme = "light" }) => {
         endpoint += `?league=${league}`;
       }
 
+      console.log(endpoint);
+
       fetch(endpoint)
         .then((response) => {
           if (!response.ok) {
@@ -75,11 +77,16 @@ const TeamTable = ({ theme = "light" }) => {
           return response.json();
         })
         .then((data) => {
-          // Simplified data processing - just pass through what we get
-          if (Array.isArray(data.players) && data.players && data) {
+          console.log(data);
+          // Handle array of team objects with players arrays
+          if (Array.isArray(data) && data.length > 0 && data[0].players) {
+            // Flatten all players from all teams
+            const allPlayers = data.flatMap((teamObj) =>
+              Array.isArray(teamObj.players) ? teamObj.players : [],
+            );
+            setTeamData({ playerEntrys: allPlayers });
+          } else if (Array.isArray(data.players)) {
             setTeamData({ playerEntrys: data.players });
-          } else if (data && Array.isArray(data)) {
-            setTeamData({ playerEntrys: data });
           } else {
             setTeamData({ playerEntrys: [] });
           }
@@ -108,13 +115,12 @@ const TeamTable = ({ theme = "light" }) => {
     <div className="TablePage">
       <div className="aboveTable">
         <div className="left-section">
-          <h2 className={`team-title ${theme}`}>Team: {teamName}</h2>
+          <h2 className="team-title">{teamName}</h2>
           <YearDropDown
             ref={selectorRef}
             years={Array.isArray(years) ? years : ["all"]}
             defaultYear={year}
             onYearChange={handleYearChange}
-            theme={theme}
           />
         </div>
         <div className="center-section">
@@ -122,7 +128,6 @@ const TeamTable = ({ theme = "light" }) => {
             placeholder="Compare to another team..."
             value={compareTeam}
             onChange={handleCompareTeamChange}
-            theme={theme}
             showLeagueYearSelection={true}
             style={{ minWidth: 250 }}
           />
@@ -157,8 +162,8 @@ const TeamTable = ({ theme = "light" }) => {
               flex: 1,
             },
             {
-              headerName: "Ranking Value",
-              field: "rankingValue",
+              headerName: "Pivot Points",
+              field: "displayValue",
               sortable: true,
               flex: 1,
             },

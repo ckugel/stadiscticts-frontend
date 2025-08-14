@@ -20,9 +20,9 @@ const SearchResultsPage = () => {
           .map((player) => player.replace(/"/g, ""))
           .filter((player) => player.trim() !== "");
         const teams = data.teams
-          .filter((team) => team.teamName && team.teamName.trim() !== "")
+          .filter((team) => team.name && team.name.trim() !== "")
           .map((team) => ({
-            teamName: team.teamName.replace(/"/g, ""),
+            name: team.name.replace(/"/g, ""),
             year: team.year,
             league: team.league,
           }));
@@ -49,8 +49,8 @@ const SearchResultsPage = () => {
             {searchResults.teams.map((team, index) => (
               <Card
                 key={index}
-                name={`${team.teamName}`}
-                link={`/team/${team.teamName}/all/${team.league}`}
+                name={`${team.name}`}
+                link={`/team/${team.name}/all/${team.league}`}
                 league={getDisplayLeagueName(team.league)}
               />
             ))}

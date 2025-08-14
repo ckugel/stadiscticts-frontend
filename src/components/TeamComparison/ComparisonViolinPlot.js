@@ -107,7 +107,7 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
     }
 
     const values = players
-      .map((player) => player.rankingValue)
+      .map((player) => player.displayValue)
       .filter((val) => val != null && val !== undefined && !isNaN(val));
     return values;
   };
@@ -145,7 +145,7 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
       legend: { position: "top" },
       title: {
         display: true,
-        text: `Team Player Ranking Value Distribution (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
+        text: `Team Player Pivot Point Distribution (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
       },
       tooltip: {
         callbacks: {
@@ -191,7 +191,7 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
     },
     scales: {
       y: {
-        title: { display: true, text: "Ranking Value" },
+        title: { display: true, text: "Pivot Points" },
       },
       x: {
         title: { display: false, text: "dist" },

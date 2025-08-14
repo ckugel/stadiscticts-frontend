@@ -1,15 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { fetchTeamDetails, getTeamSuggestions } from "./teamUtils";
 import { getDisplayLeagueName } from "../../utils/leagueUtils";
 import "./TeamSelectionBox.css";
 
+/**
+ * TeamSelectionBox Component
+ *
+ * A component that provides team search with autocomplete functionality and optional
+ * league/year selection for team comparison features.
+ *
+ * Flow:
+ * 1. User types team name → shows dropdown with suggestions including league info
+ * 2. User selects team from dropdown → captures both team name and league
+ * 3. Component automatically loads team details with league-specific data
+ * 4. If years are available for the selected league, shows year selection buttons
+ *
+ * @param {string} placeholder - Input placeholder text
+ * @param {string} value - Current input value (controlled component)
+ * @param {function} onChange - Callback for input value changes
+ * @param {function} onTeamSelect - Callback when team is selected from dropdown
+ * @param {function} onTeamDetailsChange - Callback when team details are loaded
+ * @param {object} style - Additional styles for the container
+ * @param {boolean} showLeagueYearSelection - Whether to show league/year selection UI
+ * @param {object} teamDetails - Current team details object
+ * @param {string} selectedLeague - Currently selected league
+ * @param {string} selectedYear - Currently selected year
+ * @param {function} onLeagueChange - Callback for league selection changes
+ * @param {function} onYearChange - Callback for year selection changes
+ * @param {boolean} isSecondary - Whether to use secondary styling (for second team)
+ */
 const TeamSelectionBox = ({
   placeholder = "Enter team name...",
   value = "",
   onChange,
   onTeamSelect,
   onTeamDetailsChange,
-  theme = "dark",
   style = {},
   showLeagueYearSelection = false,
   teamDetails = null,
@@ -17,63 +42,84 @@ const TeamSelectionBox = ({
   selectedYear = null,
   onLeagueChange,
   onYearChange,
-  isSecondary = false, // New prop for secondary accent color
+  isSecondary = false,
 }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef();
 
+  /**
+   * Handles input changes and triggers team search suggestions
+   * @param {string} inputValue - The current input value
+   */
   const handleInputChange = async (inputValue) => {
     onChange(inputValue);
     setShowDropdown(true);
 
-    const suggestions = await getTeamSuggestions(inputValue);
-    setSearchResults(suggestions);
+    if (inputValue.length > 1) {
+      const suggestions = await getTeamSuggestions(inputValue);
+      setSearchResults(suggestions);
+    } else {
+      setSearchResults([]);
+    }
   };
 
+  /**
+   * Handles team selection from the dropdown
+   * This captures both the team name and league, then loads team details
+   * @param {object} team - Selected team object with name and league properties
+   */
   const handleSelectTeam = async (team) => {
-    const cleanName = team.teamName.replace(/^"|"$/g, "");
+    const cleanName = team.name.replace(/^"|"$/g, "");
     onChange(cleanName);
     setShowDropdown(false);
     setSearchResults([]);
 
     if (onTeamSelect) onTeamSelect(team);
 
+    // Set the league from the dropdown selection
+    if (team.league && onLeagueChange) {
+      onLeagueChange(team.league);
+    }
+
+    // Load team details with the selected league to get league-specific years
     if (showLeagueYearSelection && onTeamDetailsChange) {
-      await loadTeamDetails(cleanName);
-    }
-  };
-
-  const loadTeamDetails = async (teamName) => {
-    try {
       setLoading(true);
-      const details = await fetchTeamDetails(teamName);
-      onTeamDetailsChange(details);
-    } catch (e) {
-      console.error(`Error fetching team details: ${e.message}`);
-    } finally {
-      setLoading(false);
+      try {
+        const selectedLeague = team.league || null;
+        const details = await fetchTeamDetails(cleanName, selectedLeague);
+        onTeamDetailsChange(details);
+      } catch (e) {
+        console.error(`Error loading team details: ${e.message}`);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
+  /**
+   * Handles team submission when user types and presses Enter or input loses focus
+   * Only loads team details if no team has been selected from dropdown yet
+   */
   const handleTeamSubmit = async () => {
     const teamName = value.trim();
-    if (
-      teamName &&
-      showLeagueYearSelection &&
-      onTeamDetailsChange &&
-      !teamDetails
-    ) {
-      await loadTeamDetails(teamName);
+    // Only load if we don't have details and no league selected (prevents duplicate calls)
+    if (teamName && showLeagueYearSelection && onTeamDetailsChange && !teamDetails && !selectedLeague) {
+      setLoading(true);
+      try {
+        const details = await fetchTeamDetails(teamName, null);
+        onTeamDetailsChange(details);
+      } catch (e) {
+        console.error(`Error loading team details: ${e.message}`);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   return (
-    <div
-      className={`team-selection-box ${isSecondary ? "secondary" : ""}`}
-      style={style}
-    >
+    <div className={`team-selection-box ${isSecondary ? "secondary" : ""}`} style={style}>
       <input
         ref={inputRef}
         type="text"
@@ -85,22 +131,23 @@ const TeamSelectionBox = ({
           setTimeout(() => setShowDropdown(false), 150);
           handleTeamSubmit();
         }}
-        onKeyPress={(e) => e.key === "Enter" && handleTeamSubmit()}
-        className={`team-selection-input ${theme}`}
+        onKeyDown={(e) => e.key === "Enter" && handleTeamSubmit()}
+        className="team-selection-input"
         autoComplete="off"
       />
 
+      {/* Team suggestions dropdown */}
       {showDropdown && searchResults.length > 0 && (
-        <div className={`team-selection-dropdown ${theme}`}>
+        <div className="team-selection-dropdown">
           {searchResults.map((team, i) => (
             <div
               key={i}
               onMouseDown={() => handleSelectTeam(team)}
-              className={`team-selection-dropdown-item ${theme}`}
+              className="team-selection-dropdown-item"
             >
-              <div className="team-name">{team.teamName}</div>
+              <div className="team-name">{team.name}</div>
               {team.league && (
-                <div className="team-league">League: {getDisplayLeagueName(team.league)}</div>
+                <div className="team-league">{getDisplayLeagueName(team.league)}</div>
               )}
             </div>
           ))}
@@ -109,47 +156,27 @@ const TeamSelectionBox = ({
 
       {loading && <div className="loading-text">Loading team details...</div>}
 
+      {/* Year selection buttons - only shown when team details loaded with league */}
       {showLeagueYearSelection &&
-        teamDetails &&
-        teamDetails.leagues.length > 0 && (
-          <div className="selection-section">
-            <span className={`selection-label ${theme}`}>Select League:</span>
-            <div className="selection-buttons">
-              {teamDetails.leagues.map((lg) => (
-                <button
-                  key={lg}
-                  onClick={() => {
-                    onLeagueChange(lg);
-                    if (onYearChange) onYearChange(null);
-                  }}
-                  className={`selection-button ${theme} ${selectedLeague === lg ? "selected" : ""}`}
-                >
-                  {getDisplayLeagueName(lg)}
-                </button>
-              ))}
-            </div>
+       teamDetails &&
+       selectedLeague &&
+       teamDetails.years &&
+       teamDetails.years.length > 0 && (
+        <div className="selection-section">
+          <span className="selection-label">Select Year:</span>
+          <div className="selection-buttons">
+            {teamDetails.years.map((yr) => (
+              <button
+                key={yr}
+                onClick={() => onYearChange && onYearChange(yr)}
+                className={`selection-button ${selectedYear === yr ? "selected" : ""}`}
+              >
+                {yr}
+              </button>
+            ))}
           </div>
-        )}
-
-      {showLeagueYearSelection &&
-        teamDetails &&
-        selectedLeague &&
-        teamDetails.years.length > 0 && (
-          <div className="selection-section">
-            <span className={`selection-label ${theme}`}>Select Year:</span>
-            <div className="selection-buttons">
-              {teamDetails.years.slice(1).map((yr) => (
-                <button
-                  key={yr}
-                  onClick={() => onYearChange(yr)}
-                  className={`selection-button ${theme} ${selectedYear === yr ? "selected" : ""}`}
-                >
-                  {yr}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };

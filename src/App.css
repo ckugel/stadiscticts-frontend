@@ -18,16 +18,30 @@
     --secondary-accent-text-color: #ffffff;
 
     /* Other colors */
-    --secondary-color: #074445;
-
     --tertiary-color: #000000;
-
     --search-size: 30px;
+
+    /* Dark backgrounds */
+    --dark-background-one: rgba(0, 0, 0, 0.7);
+    --dark-background-two: rgba(0, 0, 0, 0.8);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-size: 0 8px 32px;
+
+    --linear-background-gradiant: linear-gradient(to bottom, #000000, var(--accent-color));
+
+    /* Info pages */
+    --max-info-page-size: 900px;
+    --info-page-border-color: rgba(24, 233, 239, 0.2);
+
 }
 
 .App {
     text-align: center;
     height: 100vh;
+}
+
+main {
+    height: fit-content;
 }
 
 .aboveTable {
@@ -37,6 +51,10 @@
     column-gap: 2em;
     align-items: center;
     margin-bottom: 1%;
+}
+
+.main-text {
+    color: var(--accent-color);
 }
 
 #root html body {
@@ -93,37 +111,25 @@
 }
 
 main {
-    height: 82%;
-    margin-bottom: 20px;
+    height: 100%;
 }
 
-body.light {
-    color: #000000;
-    background-color: #ffffff;
-    border-color: #FFFFFF;
-}
-
-body.dark {
+body {
     color: #ffffff;
     background-color: #000000;
     border-color: #000000;
 }
 
-.theme-toggle-button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
 .navigator {
     margin: 16px 0;
     display: flex;
-    justify-content: right;
-    margin-right: 30px;
+    justify-content: center;
+    width: 80%;
+    font-size: 1.3rem;
 }
 
 .nav-link {
     color: var(--accent-color);
     font-weight: bold;
-    margin-left: 16px;
+    flex-grow: 1;
 }
