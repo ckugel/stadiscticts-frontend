@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import "../shared/InfoPage.css";
 
 const AboutPage = () => {
@@ -24,12 +25,26 @@ const AboutPage = () => {
 
           <section className="info-section">
             <h2>How We Are Trying To Do That</h2>
-            <p>TODO</p>
+            <p>
+              We are utilizing a metric called pivot points that combines
+              statisticts from public USAU tournament information. You can learn
+              more about them{" "}
+              <Link to="/Pivot-points-explained" className="info-link">
+                <b>
+                  <u>here</u>
+                </b>
+              </Link>
+              .
+            </p>
           </section>
 
           <section className="info-section">
             <h2>Limitations</h2>
-            <p>TODO</p>
+            <p>
+              We are very limited by the data that we can collect as well as the
+              time of the developers. All the time to make this project has been
+              donated by the team for the community.
+            </p>
           </section>
 
           <section className="info-section">

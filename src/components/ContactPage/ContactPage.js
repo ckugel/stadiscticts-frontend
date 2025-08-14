@@ -31,15 +31,7 @@ const ContactPage = () => {
               <div className="contact-methods">
                 <div className="contact-method">
                   <h3>General Email</h3>
-                  <p>info@stadiscticts.com</p>
-                </div>
-                <div className="contact-method">
-                  <h3>Data Requests</h3>
-                  <p>data@stadiscticts.com</p>
-                </div>
-                <div className="contact-method">
-                  <h3>Technical Support</h3>
-                  <p>support@stadiscticts.com</p>
+                  <p>stadiscticts@gmail.com</p>
                 </div>
               </div>
             </section>

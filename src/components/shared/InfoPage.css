@@ -41,7 +41,8 @@
     line-height: 1.6;
     box-shadow: var(--shadow-size) var(--shadow-color);
     width: 100%;
-    height: fit-content;
+    height: 100%;
+    overflow: scroll;
 }
 
 .info-section {
