@@ -6,6 +6,8 @@
 /.pnp
 .pnp.js
 
+deploy/
+
 .orig
 # testing
 /coverage

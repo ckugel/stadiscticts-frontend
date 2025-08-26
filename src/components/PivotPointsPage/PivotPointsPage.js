@@ -9,7 +9,8 @@ const PivotPointsPage = () => {
         <header className="info-header">
           <h1>What are Pivot Points?</h1>
           <p>
-            The <i>ultimate</i> metric of a player based on goals, assists, TODO
+            The <i>ultimate</i> metric of a player based on goals, assists,
+            turnovers, and D's
           </p>
         </header>
 

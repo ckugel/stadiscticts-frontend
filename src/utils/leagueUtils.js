@@ -1,10 +1,10 @@
 // League name mapping from backend values to display-friendly names
 export const leagueDisplayNames = {
-  MENS_COLLEGE: "Men's College",
-  WOMENS_COLLEGE: "Women's College",
+  OPEN_COLLEGE: "Open College",
+  WOMXNS_COLLEGE: "Womxn's College",
   MIXED_CLUB: "Mixed Club",
-  MENS_CLUB: "Men's Club",
-  WOMENS_CLUB: "Women's Club",
+  OPEN_CLUB: "Open Club",
+  WOMXNS_CLUB: "Womxn's Club",
   OTHER: "Other",
 };
 

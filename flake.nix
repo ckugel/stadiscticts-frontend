@@ -1,5 +1,6 @@
 {
-  description = "Stadisctics - React web application for ultimate frisbee statistics";
+  description =
+    "Stadisctics - React web application for ultimate frisbee statistics";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -8,12 +9,8 @@
 
   outputs = { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-        };
-      in
-      {
+      let pkgs = import nixpkgs { inherit system; };
+      in {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_20
@@ -68,6 +65,5 @@
             echo "Proxy configured to http://localhost:8080"
           '';
         };
-      }
-    );
+      });
 }
