@@ -86,7 +86,7 @@ const PlayerPage = () => {
         <h1>{username}</h1>
         <h2>
           {" "}
-          Pivot Points: <u>{mostRecentRanking}</u>
+          BIDs: <u>{mostRecentRanking}</u>
         </h2>
         {leagueName && <h3>League: {leagueName}</h3>}
         <PlayerRankingGraph data={graphData} />

@@ -142,7 +142,7 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
       legend: { position: "top" },
       title: {
         display: true,
-        text: `Team Player Pivot Point Comparison (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
+        text: `Team BIDs Comparison (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
       },
       tooltip: {
         callbacks: {
@@ -188,7 +188,7 @@ const TeamBoxPlot = ({ teamOne, teamTwo }) => {
     },
     scales: {
       y: {
-        title: { display: true, text: "Pivot Points" },
+        title: { display: true, text: "BIDs" },
       },
       x: {
         title: { display: false, text: "Teams" },

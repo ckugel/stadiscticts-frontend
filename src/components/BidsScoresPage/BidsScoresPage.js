@@ -1,13 +1,13 @@
 import React from "react";
 import "../shared/InfoPage.css";
-import "./PivotPointsPage.css";
+import "./BidsScoresPage.css";
 
-const PivotPointsPage = () => {
+const BidsScoresPage = () => {
   return (
     <div className="info-page">
       <div className="info-content">
         <header className="info-header">
-          <h1>What are Pivot Points?</h1>
+          <h1>What are BIDs?</h1>
           <p>
             The <i>ultimate</i> metric of a player based on goals, assists,
             turnovers, and D's
@@ -29,14 +29,14 @@ const PivotPointsPage = () => {
             <h2>Limitations</h2>
             <div className="limitation-explanation">
               <p>
-                The biggest limitation of our stadisctict is actually how we get
-                it. <i>ultimate</i>ly we suffer from a lack of data. Currently
-                we hand enter all of the data for each player and do not scrape
-                any sources, although do acknowledge that we enter our data
-                based off what is in USAU's website. Due to this limitation
-                however there just isn't the information we need for other
-                levels of competition. We have found single events where stats
-                are kept and tracked and considered entering single events
+                The biggest limitation of our point system is actually how we
+                get it. <i>ultimate</i>ly we suffer from a lack of data.
+                Currently we hand enter all of the data for each player and do
+                not scrape any sources, although do acknowledge that we enter
+                our data based off what is in USAU's website. Due to this
+                limitation however there just isn't the information we need for
+                other levels of competition. We have found single events where
+                stats are kept and tracked and considered entering single events
                 although deemed that if we can't do this for all single events
                 we shouldn't do them for any as it raises concerns over the
                 validity of data. <i>Ultimately</i> we hope that in the near
@@ -54,4 +54,4 @@ const PivotPointsPage = () => {
   );
 };
 
-export default PivotPointsPage;
+export default BidsScoresPage;

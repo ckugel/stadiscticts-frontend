@@ -68,7 +68,7 @@ const PlayerRankingGraph = ({ data }) => {
             <strong>Year:</strong> {label}
           </p>
           <p>
-            <strong>Pivot Points:</strong> {tooltipData.rankingValue.toFixed(2)}
+            <strong>BIDs:</strong> {tooltipData.rankingValue.toFixed(2)}
           </p>
           <p>
             <strong>Team:</strong> {tooltipData.team}
@@ -129,9 +129,7 @@ const PlayerRankingGraph = ({ data }) => {
           </div>
         </div>
         <h3 className="graph-title">
-          {showRankingValue
-            ? "Pivot Points Over Time"
-            : "Display Value Over Time"}
+          {showRankingValue ? "BIDs Over Time" : "Display Value Over Time"}
         </h3>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -161,7 +159,7 @@ const PlayerRankingGraph = ({ data }) => {
               strokeWidth={2}
               dot={{ fill: "#2563eb", strokeWidth: 2, r: 4 }}
               activeDot={{ r: 6 }}
-              name={showRankingValue ? "Pivot Points" : "Display Value"}
+              name={showRankingValue ? "BIDs" : "Display Value"}
             />
           </LineChart>
         </ResponsiveContainer>

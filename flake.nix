@@ -1,16 +1,24 @@
 {
-  description =
-    "Stadisctics - React web application for ultimate frisbee statistics";
+  description = "BIDs - React web application for ultimate frisbee statistics";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; };
-      in {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      ...
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_20
@@ -29,7 +37,7 @@
             # Ensure node_modules/.bin is in PATH
             export PATH="$PWD/node_modules/.bin:$PATH"
 
-            echo "Stadisctics Frontend Development Environment"
+            echo "BIDs Frontend Development Environment"
             echo "--------------------------------------------"
 
             # Check if package.json exists
@@ -62,8 +70,8 @@
             echo "Node: $(node --version)"
             echo "NPM: $(npm --version)"
             echo ""
-            echo "Proxy configured to http://localhost:8080"
           '';
         };
-      });
+      }
+    );
 }
