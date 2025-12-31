@@ -145,7 +145,7 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
       legend: { position: "top" },
       title: {
         display: true,
-        text: `Team Player Pivot Point Distribution (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
+        text: `Team Player BIDs Distribution (${teamOne.year} - ${teamOne.league} vs ${teamTwo.year} - ${teamTwo.league})`,
       },
       tooltip: {
         callbacks: {
@@ -191,7 +191,7 @@ const ComparisonViolinPlot = ({ teamOne, teamTwo }) => {
     },
     scales: {
       y: {
-        title: { display: true, text: "Pivot Points" },
+        title: { display: true, text: "BIDs" },
       },
       x: {
         title: { display: false, text: "dist" },

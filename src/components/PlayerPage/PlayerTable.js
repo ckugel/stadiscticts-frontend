@@ -36,7 +36,7 @@ const PlayerTable = ({ data }) => {
             flex: 1,
           },
           {
-            headerName: "Pivot Points",
+            headerName: "BIDs",
             field: "displayValue",
             sortable: true,
             flex: 1,

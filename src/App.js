@@ -9,7 +9,7 @@ import MainPage from "./components/MainPage/MainPage";
 import TeamComparisonSection from "./components/TeamComparison/TeamComparisonSection";
 import AboutPage from "./components/AboutPage/AboutPage";
 import ContactPage from "./components/ContactPage/ContactPage";
-import PivotPointsPage from "./components/PivotPointsPage/PivotPointsPage";
+import BidsScoresPage from "./components/BidsScoresPage/BidsScoresPage";
 import { API_BASE_URL, ENDPOINTS } from "./constants/api";
 
 function App() {
@@ -37,13 +37,7 @@ function App() {
       <div className="App">
         <header className="App-header flex justify-between items-center p-4">
           <h1 className="text-3xl font-bold underline main-text">
-            <Link to="/">
-              Sta
-              <u>
-                <i>disc</i>
-              </u>
-              ticts
-            </Link>
+            <Link to="/">BIDs</Link>
           </h1>
           <nav className="navigator">
             <Link to="/about" className="nav-link">
@@ -55,8 +49,8 @@ function App() {
             <Link to="/compare-teams" className="nav-link">
               Compare Teams
             </Link>
-            <Link to="/Pivot-points-explained" className="nav-link">
-              What are pivot points?
+            <Link to="/BIDs-explained" className="nav-link">
+              What are BIDs?
             </Link>
           </nav>
           <div className="flex items-center">
@@ -79,13 +73,11 @@ function App() {
             <Route path="/search" element={<SearchResultsPage />} />
             <Route
               path="/compare-teams"
-              element={
-                <TeamComparisonSection options={options} />
-              }
+              element={<TeamComparisonSection options={options} />}
             />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/Pivot-points-explained" element={<PivotPointsPage />} />
+            <Route path="/BIDs-explained" element={<BidsScoresPage />} />
           </Routes>
         </main>
       </div>

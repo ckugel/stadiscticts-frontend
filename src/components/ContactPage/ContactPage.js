@@ -31,7 +31,7 @@ const ContactPage = () => {
               <div className="contact-methods">
                 <div className="contact-method">
                   <h3>General Email</h3>
-                  <p>stadiscticts@gmail.com</p>
+                  <p>basicimpactdistributions@gmail.com</p>
                 </div>
               </div>
             </section>

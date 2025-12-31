@@ -1,24 +1,45 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import './MainPage.css';
+import "./MainPage.css";
 
 const MainPage = () => {
-    const onSearch = (query) => {
-    };
+  const onSearch = (query) => {};
 
-    return (
-        <div className="main-page">
-            <header className="main-page-header">
-                <h1>Welcome to Stadiscticts</h1>
-            </header>
-            <main>
-                <div style={{ display: 'flex', marginLeft: 'auto', alignItems: 'center', justifyContent: 'center', height: '30px' }}>
-                    <SearchBar onSearch={onSearch} />
-                </div>
-            </main>
+  return (
+    <div className="main-page">
+      <header className="main-page-header">
+        <h1>
+          Welcome to{" "}
+          <b>
+            <i>B</i>
+          </b>
+          .
+          <b>
+            <i>I</i>
+          </b>
+          .
+          <b>
+            <i>D</i>
+          </b>
+          .s
+        </h1>
+      </header>
+      <main>
+        <div
+          style={{
+            display: "flex",
+            marginLeft: "auto",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "30px",
+          }}
+        >
+          <SearchBar onSearch={onSearch} />
         </div>
-    );
+      </main>
+    </div>
+  );
 };
 
 export default MainPage;
