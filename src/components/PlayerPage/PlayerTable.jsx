@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { getLeagueDisplayName } from "../../utils/leagueUtils";
 import "../AgGrid/AgGrid.css";
-import AgGridTable from "../AgGrid/AgGridTable.js";
+import AgGridTable from "../AgGrid/AgGridTable.jsx";
 
 const PlayerTable = ({ data }) => {
   return (

@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 
-import App from './App.js'
+import App from './App.jsx'
 
 const Root = () => (
   <ChakraProvider>

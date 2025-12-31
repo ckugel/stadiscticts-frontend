@@ -24,10 +24,8 @@
             nodejs_20
             yarn
             nodePackages.npm
-
             chromium
             firefox
-
             jq
             curl
             git
@@ -37,22 +35,11 @@
             # Ensure node_modules/.bin is in PATH
             export PATH="$PWD/node_modules/.bin:$PATH"
 
-            echo "BIDs Frontend Development Environment"
+            echo "BIDs Frontend Development Environment (Vite)"
             echo "--------------------------------------------"
 
             # Check if package.json exists
             if [ -f package.json ]; then
-              # Fix the react-scripts version issue
-              if grep -q '"react-scripts": "\^0.0.0"' package.json; then
-                echo "⚠️  Detected invalid react-scripts version in package.json"
-                echo "📦 Installing correct react-scripts version..."
-
-                # Install a proper version of react-scripts locally
-                npm install --save-dev react-scripts@5.0.1
-
-                echo "✅ react-scripts installed successfully!"
-              fi
-
               # Check if node_modules exists
               if [ ! -d "node_modules" ]; then
                 echo "📦 Installing dependencies..."
@@ -63,9 +50,9 @@
 
             echo ""
             echo "Commands:"
-            echo "  npm start      - Start development server"
-            echo "  npm test       - Run tests"
-            echo "  npm run build  - Build for production"
+            echo "  npm run dev      - Start development server"
+            echo "  npm run build       - Build the project for production"
+            echo "  npm run test  - Runs tests using vitest"
             echo ""
             echo "Node: $(node --version)"
             echo "NPM: $(npm --version)"

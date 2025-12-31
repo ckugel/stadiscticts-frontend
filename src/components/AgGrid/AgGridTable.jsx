@@ -1,13 +1,13 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
-import NoDataOverlay from "./NoDataOverlay.js";
+import NoDataOverlay from "./NoDataOverlay.jsx";
 // import "ag-grid-community/styles/ag-grid.css";
 import {
   ModuleRegistry,
   themeBalham,
   AllCommunityModule,
 } from "ag-grid-community";
-import { myTheme } from "./ag-grid-theme-builder.js";
+import { myTheme } from "./ag-grid-theme-builder.jsx";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

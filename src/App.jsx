@@ -35,9 +35,22 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header flex justify-between items-center p-4">
+        <header className="App-header flex justify-between items-center">
           <h1 className="text-3xl font-bold underline main-text">
-            <Link to="/">BIDs</Link>
+            <Link to="/">
+          <b>
+            <i>B</i>
+          </b>
+          .
+          <b>
+            <i>I</i>
+          </b>
+          .
+          <b>
+            <i>D</i>
+          </b>
+          s
+	</Link>
           </h1>
           <nav className="navigator">
             <Link to="/about" className="nav-link">

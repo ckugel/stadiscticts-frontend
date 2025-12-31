@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL, ENDPOINTS } from "../../constants/api";
-import AgGridTable from "../AgGrid/AgGridTable.js";
-import YearDropDown from "./YearDropDown.js";
+import AgGridTable from "../AgGrid/AgGridTable.jsx";
+import YearDropDown from "./YearDropDown.jsx";
 import "../AgGrid/AgGrid.css";
 import "./TeamTable.css";
 import TeamSelectionBox from "../TeamComparison/TeamSelectionBox";

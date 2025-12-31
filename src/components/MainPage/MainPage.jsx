@@ -22,7 +22,7 @@ const MainPage = () => {
           <b>
             <i>D</i>
           </b>
-          .s
+          s
         </h1>
       </header>
       <main>
