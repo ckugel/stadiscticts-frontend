@@ -168,3 +168,10 @@ export const buildComparisonUrl = (team1, team2, league1 = null, league2 = null)
 
     return `/compare-teams?${params.toString()}`;
 };
+
+/**
+ * Unquote text
+ */
+export const unquote = (str)  => {
+    return str.replace(/^\s*['"]|['"]\s*$/g, '');
+}

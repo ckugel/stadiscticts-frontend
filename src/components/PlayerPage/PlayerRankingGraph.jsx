@@ -14,7 +14,7 @@ import "./PlayerRankingGraph.css";
 import "./PlayerPage.css";
 
 const PlayerRankingGraph = ({ data }) => {
-  const [showRankingValue, setShowRankingValue] = useState(false);
+  const [showRankingValue, setShowRankingValue] = useState(true);
   // Process data for the chart
   const chartData = useMemo(() => {
     if (!data || !Array.isArray(data)) return [];
@@ -124,7 +124,7 @@ const PlayerRankingGraph = ({ data }) => {
                 checked={showRankingValue}
                 onChange={() => setShowRankingValue(true)}
               />
-              <span>Change</span>
+              <span>By Event</span>
             </label>
           </div>
         </div>

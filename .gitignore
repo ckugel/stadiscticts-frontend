@@ -8,6 +8,8 @@
 
 deploy/
 
+dist/
+
 .orig
 # testing
 /coverage

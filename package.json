@@ -19,14 +19,13 @@
     "react-dom": "18.2.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.0",
-    "recharts": "^3.1.0",
-    "shoelace": "^0.1.1"
+    "recharts": "^3.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "browserslist": {
     "production": [
@@ -47,13 +46,12 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "18.0.27",
     "@types/react-dom": "^18.0.10",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.21",
     "jsdom": "^26.1.0",
     "postcss": "^8.5.6",
-    "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.17",
-    "vite": "^6.3.5",
-    "vitest": "^3.2.4"
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
   }
 }
