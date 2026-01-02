@@ -20,7 +20,7 @@ const PlayerPage = () => {
     setError(null);
 
     // Build endpoints
-    let endpoint = `${API_BASE_URL}${ENDPOINTS.PLAYER}/${username}`;
+    let endpoint = `${API_BASE_URL}${ENDPOINTS.GRAPH}/${username}`;
     let graphEndpoint = `${API_BASE_URL}${ENDPOINTS.GRAPH}/${username}`;
     if (leagueName) {
       endpoint += `/${leagueName}`;
