@@ -10,6 +10,8 @@ deploy/
 
 dist/
 
+redeploy.sh
+
 .orig
 # testing
 /coverage

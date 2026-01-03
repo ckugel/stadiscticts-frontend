@@ -16,7 +16,7 @@ const PlayerTable = ({ data }) => {
             field: "team",
             cellRenderer: (params) => (
               <Link
-                to={`/team/${params.data.team}/${params.data.year}/${params.data.league}`}
+                to={`/team/${unquote(params.data.team)}/${params.data.year}/${params.data.league}`}
               >
                 {unquote(params.data.team)}
               </Link>
